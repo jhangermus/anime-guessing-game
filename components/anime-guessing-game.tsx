@@ -48,6 +48,8 @@ export default function AnimeGuessingGame() {
   const [showDevilFruitHint, setShowDevilFruitHint] = useState(false)
   const [genreAttempts, setGenreAttempts] = useState(4)
   const [episodeCountAttempts, setEpisodeCountAttempts] = useState(7)
+  const [showGenreHint, setShowGenreHint] = useState(false)
+  const [showEpisodeCountHint, setShowEpisodeCountHint] = useState(false)
 
   // Initialize the game with a random anime
   useEffect(() => {
@@ -138,16 +140,22 @@ export default function AnimeGuessingGame() {
     // Decrease hint counters if guess is incorrect
     if (anime.nombre !== todaysAnime?.nombre) {
       if (genreAttempts > 0) {
-        setGenreAttempts(prev => prev - 1)
-        if (genreAttempts === 1) {
-          setShowFirstAppearanceHint(true)
-        }
+        setGenreAttempts(prev => {
+          const newValue = prev - 1
+          if (newValue === 0) {
+            setShowGenreHint(true)
+          }
+          return newValue
+        })
       }
       if (episodeCountAttempts > 0) {
-        setEpisodeCountAttempts(prev => prev - 1)
-        if (episodeCountAttempts === 1) {
-          setShowDevilFruitHint(true)
-        }
+        setEpisodeCountAttempts(prev => {
+          const newValue = prev - 1
+          if (newValue === 0) {
+            setShowEpisodeCountHint(true)
+          }
+          return newValue
+        })
       }
     }
 
@@ -155,8 +163,6 @@ export default function AnimeGuessingGame() {
     if (anime.nombre === todaysAnime?.nombre) {
       setGameState("won")
       setSuccessCount(successCount + 1)
-    } else if (guessCount >= 5) {
-      setGameState("lost")
     }
 
     setGuessInput("")
@@ -188,8 +194,8 @@ export default function AnimeGuessingGame() {
     setGameState("playing")
     setGuessCount(0)
     setShowHint(false)
-    setShowFirstAppearanceHint(false)
-    setShowDevilFruitHint(false)
+    setShowGenreHint(false)
+    setShowEpisodeCountHint(false)
     setGenreAttempts(4)
     setEpisodeCountAttempts(7)
     setSuggestions([])
@@ -210,18 +216,27 @@ export default function AnimeGuessingGame() {
           </h1>
           <p className="text-center text-amber-800">Escribe el nombre del anime.</p>
 
-          {showHint && todaysAnime && (
+          {/* Hints Section */}
+          {todaysAnime && (showGenreHint || showEpisodeCountHint) && (
             <div className="mt-3 p-2 bg-amber-200 rounded-lg text-center text-amber-900">
-              <p className="font-medium">Hint: {todaysAnime.autor}</p>
-              <p className="text-sm">Año: {todaysAnime.añoDebut}</p>
+              {showGenreHint && (
+                <p className="font-medium mb-1">
+                  Géneros: {todaysAnime.genero.join(", ")}
+                </p>
+              )}
+              {showEpisodeCountHint && (
+                <p className="font-medium">
+                  Número de capítulos: {todaysAnime.capitulos}
+                </p>
+              )}
             </div>
           )}
         </div>
 
         {/* Hint Buttons */}
         <HintButtons
-          onGenreHint={() => setShowFirstAppearanceHint(true)}
-          onEpisodeCountHint={() => setShowDevilFruitHint(true)}
+          onGenreHint={() => setShowGenreHint(true)}
+          onEpisodeCountHint={() => setShowEpisodeCountHint(true)}
           genreAttempts={genreAttempts}
           episodeCountAttempts={episodeCountAttempts}
         />
@@ -353,17 +368,6 @@ export default function AnimeGuessingGame() {
                 </div>
               </div>
             )}
-          </div>
-        )}
-
-        {/* Game Status */}
-        {gameState === "lost" && (
-          <div className="bg-red-100 border-2 border-red-500 rounded-lg p-4 text-center mb-6">
-            <h2 className="text-xl font-bold text-red-700">Game Over!</h2>
-            <p className="text-red-600">The anime was: {todaysAnime?.nombre}</p>
-            <Button onClick={resetGame} className="mt-3 bg-red-600 hover:bg-red-700">
-              Try Again
-            </Button>
           </div>
         )}
 
