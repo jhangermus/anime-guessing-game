@@ -10,7 +10,7 @@ export default function Home() {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
-          filter: 'brightness(0.9)'
+          filter: 'brightness(0.8)'
         }}
       />
       <div className="relative z-10 w-full max-w-3xl">

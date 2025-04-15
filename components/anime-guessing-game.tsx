@@ -406,48 +406,13 @@ export default function AnimeGuessingGame() {
     <div className="w-full relative">
       {/* Main Game Container */}
       <div className="bg-amber-50/90 border-4 border-amber-900/30 rounded-xl p-6 shadow-xl relative">
-        {/* Navigation Icons */}
-        <div className="flex justify-center gap-4 mb-4">
-          <div className="flex bg-amber-200 rounded-full p-1">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="w-10 h-10 rounded-full bg-amber-900 flex items-center justify-center mx-1">
-                <div className="w-8 h-8 rounded-full bg-amber-800 flex items-center justify-center">
-                  <div className="w-6 h-6 rounded-full bg-amber-700"></div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Tool Icons */}
-        <div className="flex justify-center gap-2 mb-6">
-          <Button variant="ghost" className="bg-amber-200 hover:bg-amber-300 h-10 w-10 p-0">
-            <BarChart3 className="h-5 w-5 text-amber-900" />
-          </Button>
-          <Button variant="ghost" className="bg-amber-200 hover:bg-amber-300 h-10 w-10 p-0">
-            <Flame className="h-5 w-5 text-amber-900" />
-          </Button>
-          <Button variant="ghost" className="bg-amber-200 hover:bg-amber-300 h-10 w-10 p-0">
-            <span className="font-bold text-amber-900">WANO</span>
-          </Button>
-          <Button variant="ghost" className="bg-amber-200 hover:bg-amber-300 h-10 w-10 p-0">
-            <ClipboardList className="h-5 w-5 text-amber-900" />
-          </Button>
-          <Button
-            variant="ghost"
-            className="bg-amber-200 hover:bg-amber-300 h-10 w-10 p-0"
-            onClick={() => setShowHint(!showHint)}
-          >
-            <HelpCircle className="h-5 w-5 text-amber-900" />
-          </Button>
-        </div>
 
         {/* Game Title and Instructions */}
         <div className="bg-amber-100 border-2 border-amber-900/20 rounded-xl p-4 mb-6">
           <h1 className="text-center text-xl font-bold text-amber-900 mb-2">
-            ¡ADIVINA EL PERSONAJE DE ONE PIECE DE HOY!
+            ¡ADIVINA EL ANIME HOY!
           </h1>
-          <p className="text-center text-amber-800">Type any letter or character to start guessing.</p>
+          <p className="text-center text-amber-800">Escribe el nombre del anime.</p>
 
           {showHint && todaysCharacter && (
             <div className="mt-3 p-2 bg-amber-200 rounded-lg text-center text-amber-900">
