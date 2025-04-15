@@ -146,7 +146,7 @@ export default function CharacterAttributesTable({
         {/* Header row - only shown if showHeader is true */}
         {showHeader &&
           attributes.map((attr, index) => (
-            <div key={`header-${index}`} className="text-xs font-medium text-center text-gray-700 truncate px-1">
+            <div key={`header-${index}`} className="text-xs font-medium text-center text-gray-700 px-1 whitespace-normal">
               {attr.label}
             </div>
           ))}
@@ -166,10 +166,12 @@ export default function CharacterAttributesTable({
           return (
             <div
               key={`attr-${index}`}
-              className={cn("h-16 flex items-center justify-center text-center p-1 rounded-md", bgColor)}
-              style={{ minWidth: 0 }}
+              className={cn(
+                "min-h-[4rem] flex items-center justify-center text-center p-2 rounded-md break-words",
+                bgColor
+              )}
             >
-              <div className="text-xs font-medium truncate w-full">
+              <div className="text-xs font-medium w-full whitespace-normal">
                 {directionIcon && <div className="text-lg font-bold">{directionIcon}</div>}
                 {Array.isArray(attr.guessedValue) 
                   ? attr.guessedValue.join(", ")
