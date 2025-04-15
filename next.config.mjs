@@ -27,6 +27,9 @@ const nextConfig = {
     parallelServerBuildTraces: true,
     parallelServerCompiles: true,
   },
+  webpack: (config) => {
+    return config
+  }
 }
 
 if (userConfig) {

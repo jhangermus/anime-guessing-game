@@ -10,233 +10,37 @@ import Image from "next/image"
 import CharacterAttributesTable from "./character-attributes-table"
 import HintButtons from "./hint-buttons"
 import SuccessCard from "./success-card"
+import animeDataRaw from "@/data/animedata.json"
 
-// Expanded character database with more attributes
-const animeCharacters = [
-  {
-    id: 1,
-    name: "Monkey D. Luffy",
-    alias: "Straw Hat",
-    anime: "One Piece",
-    hint: "Wants to be the Pirate King",
-    avatar: "/placeholder.svg?height=40&width=40",
-    gender: "Masculino",
-    affiliation: "Piratas de Sombrero de Paja",
-    devilFruit: "Gomu Gomu no Mi",
-    haki: "Armament, Observation, Conqueror's",
-    bounty: "₿ 3,000,000,000",
-    height: "1m74",
-    origin: "East Blue",
-    firstArc: "Romance Dawn",
-  },
-  {
-    id: 2,
-    name: "Roronoa Zoro",
-    alias: "Pirate Hunter",
-    anime: "One Piece",
-    hint: "Three-sword style swordsman",
-    avatar: "/placeholder.svg?height=40&width=40",
-    gender: "Masculino",
-    affiliation: "Piratas de Sombrero de Paja",
-    devilFruit: "Ninguno",
-    haki: "Armament, Observation",
-    bounty: "₿ 1,111,000,000",
-    height: "1m81",
-    origin: "East Blue",
-    firstArc: "Romance Dawn",
-  },
-  {
-    id: 3,
-    name: "Nami",
-    alias: "Cat Burglar",
-    anime: "One Piece",
-    hint: "Navigator who loves money and tangerines",
-    avatar: "/placeholder.svg?height=40&width=40",
-    gender: "Femenino",
-    affiliation: "Piratas de Sombrero de Paja",
-    devilFruit: "Ninguno",
-    haki: "Ninguno",
-    bounty: "₿ 366,000,000",
-    height: "1m70",
-    origin: "East Blue",
-    firstArc: "Orange Town",
-  },
-  {
-    id: 4,
-    name: "Usopp",
-    alias: "Hana Arashi",
-    anime: "One Piece",
-    hint: "Long-nosed sniper who tells tall tales",
-    avatar: "/placeholder.svg?height=40&width=40",
-    gender: "Masculino",
-    affiliation: "Piratas de Sombrero de Paja",
-    devilFruit: "Ninguno",
-    haki: "Observation",
-    bounty: "₿ 500,000,000",
-    height: "1m76",
-    origin: "East Blue",
-    firstArc: "Syrup Village",
-  },
-  {
-    id: 5,
-    name: "Sanji",
-    alias: "Black Leg",
-    anime: "One Piece",
-    hint: "Cook who only fights with his legs",
-    avatar: "/placeholder.svg?height=40&width=40",
-    gender: "Masculino",
-    affiliation: "Piratas de Sombrero de Paja",
-    devilFruit: "Ninguno",
-    haki: "Armament, Observation",
-    bounty: "₿ 1,032,000,000",
-    height: "1m80",
-    origin: "North Blue",
-    firstArc: "Baratie",
-  },
-  {
-    id: 6,
-    name: "Tony Tony Chopper",
-    alias: "El Amante del Algodón de Azúcar",
-    anime: "One Piece",
-    hint: "Reindeer doctor who ate the Human-Human Fruit",
-    avatar: "/placeholder.svg?height=40&width=40",
-    gender: "Masculino",
-    affiliation: "Piratas de Sombrero de Paja",
-    devilFruit: "Hito Hito no Mi",
-    haki: "Ninguno",
-    bounty: "₿ 1,000",
-    height: "0m90",
-    origin: "Grand Line",
-    firstArc: "Drum Island",
-  },
-  {
-    id: 7,
-    name: "Nico Robin",
-    alias: "Miss All Sunday",
-    anime: "One Piece",
-    hint: "Archaeologist who can sprout body parts",
-    avatar: "/placeholder.svg?height=40&width=40",
-    gender: "Femenino",
-    affiliation: "Piratas de Sombrero de Paja",
-    devilFruit: "Hana Hana no Mi",
-    haki: "Ninguno",
-    bounty: "₿ 930,000,000",
-    height: "1m88",
-    origin: "West Blue",
-    firstArc: "Arabasta",
-  },
-  {
-    id: 8,
-    name: "Franky",
-    alias: "Cyborg",
-    anime: "One Piece",
-    hint: "Shipwright with a cola-powered body",
-    avatar: "/placeholder.svg?height=40&width=40",
-    gender: "Masculino",
-    affiliation: "Piratas de Sombrero de Paja",
-    devilFruit: "Ninguno",
-    haki: "Ninguno",
-    bounty: "₿ 394,000,000",
-    height: "2m40",
-    origin: "South Blue",
-    firstArc: "Water 7",
-  },
-  {
-    id: 9,
-    name: "Brook",
-    alias: "Soul King",
-    anime: "One Piece",
-    hint: "Skeleton musician who can return from death once",
-    avatar: "/placeholder.svg?height=40&width=40",
-    gender: "Masculino",
-    affiliation: "Piratas de Sombrero de Paja",
-    devilFruit: "Yomi Yomi no Mi",
-    haki: "Ninguno",
-    bounty: "₿ 383,000,000",
-    height: "2m77",
-    origin: "West Blue",
-    firstArc: "Thriller Bark",
-  },
-  {
-    id: 10,
-    name: "Jinbe",
-    alias: "Knight of the Sea",
-    anime: "One Piece",
-    hint: "Fish-Man karate master and former Warlord",
-    avatar: "/placeholder.svg?height=40&width=40",
-    gender: "Masculino",
-    affiliation: "Piratas de Sombrero de Paja",
-    devilFruit: "Ninguno",
-    haki: "Armament",
-    bounty: "₿ 1,100,000,000",
-    height: "3m01",
-    origin: "Grand Line",
-    firstArc: "Impel Down",
-  },
-  {
-    id: 11,
-    name: "Marco",
-    alias: "Marco el Ave Inmortal",
-    anime: "One Piece",
-    hint: "First division commander of the Whitebeard Pirates",
-    avatar: "/placeholder.svg?height=40&width=40",
-    gender: "Masculino",
-    affiliation: "Piratas de Barbablanca",
-    devilFruit: "Tori Tori no Mi, Model: Phoenix",
-    haki: "Armament, Observation",
-    bounty: "₿ 1,374,000,000",
-    height: "2m03",
-    origin: "Grand Line",
-    firstArc: "Marineford",
-  },
-  {
-    id: 12,
-    name: "Pedro",
-    alias: "",
-    anime: "One Piece",
-    hint: "Jaguar mink from Zou and former captain of the Nox Pirates",
-    avatar: "/placeholder.svg?height=40&width=40",
-    gender: "Masculino",
-    affiliation: "Guardianes del Bosque",
-    devilFruit: "Ninguno",
-    haki: "Ninguno",
-    bounty: "₿ 382,000,000",
-    height: "1m98",
-    origin: "Grand Line",
-    firstArc: "Zou",
-  },
-  {
-    id: 13,
-    name: "Vinsmoke Judge",
-    alias: "El Rey de Germa",
-    anime: "One Piece",
-    hint: "Scientist and king of the Germa Kingdom",
-    avatar: "/placeholder.svg?height=40&width=40",
-    gender: "Masculino",
-    affiliation: "Germa 66",
-    devilFruit: "Ninguno",
-    haki: "Ninguno",
-    bounty: "₿ Unknown",
-    height: "2m72",
-    origin: "North Blue",
-    firstArc: "Whole Cake Island",
-  },
-]
+// Asegurar el tipado correcto de los datos
+const animeData: AnimeData[] = animeDataRaw
+
+// Tipo para la estructura de datos del anime
+type AnimeData = {
+  nombre: string
+  genero: string[]
+  demografia: string
+  estudioAnimacion: string
+  añoDebut: number
+  añoFinalizacion: number | null
+  capitulos: number
+  autor: string
+}
 
 export default function AnimeGuessingGame() {
-  const [todaysCharacter, setTodaysCharacter] = useState<(typeof animeCharacters)[0] | null>(null)
+  const [todaysAnime, setTodaysAnime] = useState<AnimeData | null>(null)
   const [guessInput, setGuessInput] = useState("")
-  const [guessHistory, setGuessHistory] = useState<(typeof animeCharacters)[0][]>([])
+  const [guessHistory, setGuessHistory] = useState<AnimeData[]>([])
   const [gameState, setGameState] = useState<"playing" | "won" | "lost">("playing")
   const [guessCount, setGuessCount] = useState(0)
   const [successCount, setSuccessCount] = useState(2955)
   const [playerRank, setPlayerRank] = useState(3997)
-  const [yesterdaysCharacter, setYesterdaysCharacter] = useState({ id: 380, name: "Trafalgar Law" })
+  const [yesterdaysAnime, setYesterdaysAnime] = useState({ id: 380, nombre: "Attack on Titan" })
   const [showHint, setShowHint] = useState(false)
-  const [suggestions, setSuggestions] = useState<typeof animeCharacters>([])
+  const [suggestions, setSuggestions] = useState<AnimeData[]>([])
   const [showSuggestions, setShowSuggestions] = useState(false)
   const [showColorLegend, setShowColorLegend] = useState(false)
-  const [nextCharacterTime, setNextCharacterTime] = useState({ hours: 12, minutes: 1, seconds: 18 })
+  const [nextAnimeTime, setNextAnimeTime] = useState({ hours: 12, minutes: 1, seconds: 18 })
   const [timeZone, setTimeZone] = useState(":D")
   const suggestionsRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -245,10 +49,10 @@ export default function AnimeGuessingGame() {
   const [firstAppearanceAttempts] = useState(4)
   const [devilFruitAttempts] = useState(7)
 
-  // Initialize the game with a random character
+  // Initialize the game with a random anime
   useEffect(() => {
-    const randomIndex = Math.floor(Math.random() * animeCharacters.length)
-    setTodaysCharacter(animeCharacters[randomIndex])
+    const randomIndex = Math.floor(Math.random() * animeData.length)
+    setTodaysAnime(animeData[randomIndex])
   }, [])
 
   // Handle clicks outside the suggestions dropdown to close it
@@ -270,12 +74,12 @@ export default function AnimeGuessingGame() {
     }
   }, [])
 
-  // Countdown timer for next character
+  // Countdown timer for next anime
   useEffect(() => {
     if (gameState !== "won") return
 
     const timer = setInterval(() => {
-      setNextCharacterTime((prev) => {
+      setNextAnimeTime((prev) => {
         const totalSeconds = prev.hours * 3600 + prev.minutes * 60 + prev.seconds - 1
         if (totalSeconds <= 0) {
           clearInterval(timer)
@@ -298,11 +102,9 @@ export default function AnimeGuessingGame() {
     setGuessInput(value)
 
     if (value.trim()) {
-      // Filter characters based on input
-      const filtered = animeCharacters.filter(
-        (character) =>
-          character.name.toLowerCase().includes(value.toLowerCase()) ||
-          (character.alias && character.alias.toLowerCase().includes(value.toLowerCase())),
+      // Filter animes based on input
+      const filtered = animeData.filter((anime) =>
+        anime.nombre.toLowerCase().includes(value.toLowerCase())
       )
       setSuggestions(filtered.slice(0, 5)) // Limit to 5 suggestions
       setShowSuggestions(true)
@@ -312,26 +114,26 @@ export default function AnimeGuessingGame() {
     }
   }
 
-  const handleSuggestionClick = (character: (typeof animeCharacters)[0]) => {
-    setGuessInput(character.name)
+  const handleSuggestionClick = (anime: AnimeData) => {
+    setGuessInput(anime.nombre)
     setShowSuggestions(false)
 
     // Submit the guess automatically when selecting a suggestion
-    if (todaysCharacter) {
-      submitGuess(character)
+    if (todaysAnime) {
+      submitGuess(anime)
     }
   }
 
-  const submitGuess = (character: (typeof animeCharacters)[0]) => {
+  const submitGuess = (anime: AnimeData) => {
     if (gameState !== "playing") return
 
     // Add to guess history
-    setGuessHistory([character, ...guessHistory])
+    setGuessHistory([anime, ...guessHistory])
     setGuessCount(guessCount + 1)
     setShowColorLegend(true)
 
     // Check if guess is correct
-    if (character.id === todaysCharacter?.id) {
+    if (anime.nombre === todaysAnime?.nombre) {
       setGameState("won")
       setSuccessCount(successCount + 1)
     } else if (guessCount >= 5) {
@@ -344,34 +146,15 @@ export default function AnimeGuessingGame() {
   const handleGuessSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (!guessInput.trim() || !todaysCharacter) return
+    if (!guessInput.trim() || !todaysAnime) return
 
-    // Find the character in our database
-    const guessedCharacter = animeCharacters.find(
-      (character) => character.name.toLowerCase() === guessInput.toLowerCase(),
+    // Find the anime in our database
+    const guessedAnime = animeData.find(
+      (anime) => anime.nombre.toLowerCase() === guessInput.toLowerCase()
     )
 
-    if (guessedCharacter) {
-      submitGuess(guessedCharacter)
-    } else {
-      // If character not found, just use the input as name
-      const unknownCharacter = {
-        id: -1,
-        name: guessInput,
-        alias: "",
-        anime: "Unknown",
-        hint: "",
-        avatar: "/placeholder.svg?height=40&width=40",
-        gender: "Unknown",
-        affiliation: "Unknown",
-        devilFruit: "Unknown",
-        haki: "Unknown",
-        bounty: "Unknown",
-        height: "Unknown",
-        origin: "Unknown",
-        firstArc: "Unknown",
-      }
-      submitGuess(unknownCharacter)
+    if (guessedAnime) {
+      submitGuess(guessedAnime)
     }
 
     setSuggestions([])
@@ -379,8 +162,8 @@ export default function AnimeGuessingGame() {
   }
 
   const resetGame = () => {
-    const randomIndex = Math.floor(Math.random() * animeCharacters.length)
-    setTodaysCharacter(animeCharacters[randomIndex])
+    const randomIndex = Math.floor(Math.random() * animeData.length)
+    setTodaysAnime(animeData[randomIndex])
     setGuessInput("")
     setGuessHistory([])
     setGameState("playing")
@@ -391,7 +174,7 @@ export default function AnimeGuessingGame() {
     setSuggestions([])
     setShowSuggestions(false)
     setShowColorLegend(false)
-    setNextCharacterTime({ hours: 12, minutes: 1, seconds: 18 })
+    setNextAnimeTime({ hours: 12, minutes: 1, seconds: 18 })
   }
 
   const handleFirstAppearanceHint = () => {
@@ -414,10 +197,10 @@ export default function AnimeGuessingGame() {
           </h1>
           <p className="text-center text-amber-800">Escribe el nombre del anime.</p>
 
-          {showHint && todaysCharacter && (
+          {showHint && todaysAnime && (
             <div className="mt-3 p-2 bg-amber-200 rounded-lg text-center text-amber-900">
-              <p className="font-medium">Hint: {todaysCharacter.hint}</p>
-              <p className="text-sm">Anime: {todaysCharacter.anime}</p>
+              <p className="font-medium">Hint: {todaysAnime.autor}</p>
+              <p className="text-sm">Año: {todaysAnime.añoDebut}</p>
             </div>
           )}
         </div>
@@ -436,7 +219,7 @@ export default function AnimeGuessingGame() {
             <Input
               ref={inputRef}
               type="text"
-              placeholder="Nombre del personaje, alias, epíteto..."
+              placeholder="Nombre del anime..."
               value={guessInput}
               onChange={handleInputChange}
               onFocus={() => guessInput.trim() && setShowSuggestions(true)}
@@ -459,24 +242,23 @@ export default function AnimeGuessingGame() {
               ref={suggestionsRef}
               className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto"
             >
-              {suggestions.map((character) => (
+              {suggestions.map((anime) => (
                 <div
-                  key={character.id}
+                  key={anime.nombre}
                   className="flex items-center p-2 hover:bg-gray-100 cursor-pointer border-b border-gray-100"
-                  onClick={() => handleSuggestionClick(character)}
+                  onClick={() => handleSuggestionClick(anime)}
                 >
                   <div className="flex-shrink-0 w-10 h-10 mr-3">
                     <Image
-                      src={character.avatar || "/placeholder.svg"}
-                      alt={character.name}
+                      src={"/placeholder.svg"}
+                      alt={anime.nombre}
                       width={40}
                       height={40}
                       className="rounded-full"
                     />
                   </div>
                   <div className="flex-1">
-                    <div className="font-medium">{character.name}</div>
-                    {character.alias && <div className="text-sm text-gray-500">Alias: {character.alias}</div>}
+                    <div className="font-medium">{anime.nombre}</div>
                   </div>
                 </div>
               ))}
@@ -485,7 +267,7 @@ export default function AnimeGuessingGame() {
         </form>
 
         {/* Character Attributes Tables - Stacked vertically */}
-        {guessHistory.length > 0 && todaysCharacter && (
+        {guessHistory.length > 0 && todaysAnime && (
           <div className="mb-6 space-y-4">
             {/* Stats */}
             <div className="flex justify-center items-center gap-2 text-blue-500 mb-2">
@@ -500,15 +282,14 @@ export default function AnimeGuessingGame() {
             <div className="bg-blue-100 border border-blue-500 rounded-md p-1">
               <div className="grid grid-cols-9 gap-1">
                 {[
-                  "PERSONAJE",
+                  "ANIME",
                   "GÉNERO",
-                  "AFILIACIÓN",
-                  "FRUTA DEL DIABLO",
-                  "HAKI",
-                  "ÚLTIMA RECOMPENSA",
-                  "ALTURA",
-                  "ORIGEN",
-                  "PRIMER ARCO",
+                  "DEMOGRAFÍA",
+                  "ESTUDIO DE ANIMACIÓN",
+                  "AÑO DE DEBUT",
+                  "AÑO DE FINALIZACIÓN",
+                  "CAPÍTULOS",
+                  "AUTOR",
                 ].map((label, index) => (
                   <div key={index} className="text-xs font-medium text-center text-blue-800 truncate px-1">
                     {label}
@@ -517,12 +298,12 @@ export default function AnimeGuessingGame() {
               </div>
             </div>
 
-            {/* Character guesses - without headers */}
-            {guessHistory.map((character, index) => (
+            {/* Anime guesses - without headers */}
+            {guessHistory.map((anime, index) => (
               <div key={index} className="mb-2">
                 <CharacterAttributesTable
-                  guessedCharacter={character}
-                  targetCharacter={todaysCharacter}
+                  guessedCharacter={anime}
+                  targetCharacter={todaysAnime}
                   showHeader={false}
                 />
               </div>
@@ -575,32 +356,31 @@ export default function AnimeGuessingGame() {
         {gameState === "lost" && (
           <div className="bg-red-100 border-2 border-red-500 rounded-lg p-4 text-center mb-6">
             <h2 className="text-xl font-bold text-red-700">Game Over!</h2>
-            <p className="text-red-600">The character was: {todaysCharacter?.name}</p>
+            <p className="text-red-600">The anime was: {todaysAnime?.nombre}</p>
             <Button onClick={resetGame} className="mt-3 bg-red-600 hover:bg-red-700">
               Try Again
             </Button>
           </div>
         )}
 
-        {/* Yesterday's Character */}
+        {/* Yesterday's Anime */}
         <div className="text-center mt-4 text-amber-800">
           <p>
-            Yesterday&apos;s character was <span className="text-red-500">#{yesterdaysCharacter.id}</span>{" "}
-            {yesterdaysCharacter.name}
+            Yesterday&apos;s anime was <span className="text-red-500">#{yesterdaysAnime.id}</span>{" "}
+            {yesterdaysAnime.nombre}
           </p>
         </div>
       </div>
 
       {/* Success Card - Only shown when game is won */}
-      {gameState === "won" && todaysCharacter && (
+      {gameState === "won" && todaysAnime && (
         <SuccessCard
-          character={{
-            name: todaysCharacter.name,
-            avatar: todaysCharacter.avatar,
+          anime={{
+            nombre: todaysAnime.nombre
           }}
           attemptCount={guessCount}
           playerRank={playerRank}
-          nextCharacterTime={nextCharacterTime}
+          nextCharacterTime={nextAnimeTime}
           timeZone={timeZone}
         />
       )}

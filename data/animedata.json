@@ -1,0 +1,102 @@
+[
+  {
+    "nombre": "Attack on Titan",
+    "genero": ["Acción", "Drama", "Fantasía oscura"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "Wit Studio, MAPPA",
+    "añoDebut": 2013,
+    "añoFinalizacion": 2023,
+    "capitulos": 89,
+    "autor": "Hajime Isayama"
+  },
+  {
+    "nombre": "Death Note",
+    "genero": ["Suspenso", "Psicológico", "Sobrenatural"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "Madhouse",
+    "añoDebut": 2006,
+    "añoFinalizacion": 2007,
+    "capitulos": 37,
+    "autor": "Tsugumi Ohba"
+  },
+  {
+    "nombre": "Fullmetal Alchemist: Brotherhood",
+    "genero": ["Acción", "Aventura", "Fantasía"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "Bones",
+    "añoDebut": 2009,
+    "añoFinalizacion": 2010,
+    "capitulos": 64,
+    "autor": "Hiromu Arakawa"
+  },
+  {
+    "nombre": "Demon Slayer",
+    "genero": ["Acción", "Fantasía oscura", "Aventura"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "Ufotable",
+    "añoDebut": 2019,
+    "añoFinalizacion": null,
+    "capitulos": 55,
+    "autor": "Koyoharu Gotouge"
+  },
+  {
+    "nombre": "One Piece",
+    "genero": ["Acción", "Aventura", "Fantasía"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "Toei Animation",
+    "añoDebut": 1999,
+    "añoFinalizacion": null,
+    "capitulos": 1100,
+    "autor": "Eiichiro Oda"
+  },
+  {
+    "nombre": "Naruto",
+    "genero": ["Acción", "Aventura", "Fantasía"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "Pierrot",
+    "añoDebut": 2002,
+    "añoFinalizacion": 2007,
+    "capitulos": 220,
+    "autor": "Masashi Kishimoto"
+  },
+  {
+    "nombre": "Bleach",
+    "genero": ["Acción", "Aventura", "Sobrenatural"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "Pierrot",
+    "añoDebut": 2004,
+    "añoFinalizacion": 2012,
+    "capitulos": 366,
+    "autor": "Tite Kubo"
+  },
+  {
+    "nombre": "My Hero Academia",
+    "genero": ["Acción", "Aventura", "Superhéroes"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "Bones",
+    "añoDebut": 2016,
+    "añoFinalizacion": null,
+    "capitulos": 138,
+    "autor": "Kōhei Horikoshi"
+  },
+  {
+    "nombre": "Jujutsu Kaisen",
+    "genero": ["Acción", "Fantasía oscura", "Sobrenatural"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "MAPPA",
+    "añoDebut": 2020,
+    "añoFinalizacion": null,
+    "capitulos": 47,
+    "autor": "Gege Akutami"
+  },
+  {
+    "nombre": "Hunter x Hunter",
+    "genero": ["Acción", "Aventura", "Fantasía"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "Madhouse",
+    "añoDebut": 2011,
+    "añoFinalizacion": 2014,
+    "capitulos": 148,
+    "autor": "Yoshihiro Togashi"
+  }
+]

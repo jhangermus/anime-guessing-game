@@ -2,14 +2,15 @@ import AnimeGuessingGame from "@/components/anime-guessing-game"
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen w-full flex items-center justify-center p-4">
+    <main className="relative min-h-screen w-full flex items-center justify-center p-4 overflow-auto">
       <div 
-        className="absolute inset-0 -z-10"
+        className="absolute inset-0 -z-10 fixed"
         style={{
           backgroundImage: "url('/background.jpg')",
-          backgroundSize: 'cover',
+          backgroundSize: '1920px 1080px',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
+          backgroundAttachment: 'fixed',
           filter: 'brightness(0.8)'
         }}
       />

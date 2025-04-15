@@ -1,25 +1,20 @@
 import Image from "next/image"
 import { cn } from "@/lib/utils"
 
-type CharacterAttributes = {
-  id: number
-  name: string
-  alias: string
-  anime: string
-  avatar: string
-  gender: string
-  affiliation: string
-  devilFruit: string
-  haki: string
-  bounty: string
-  height: string
-  origin: string
-  firstArc: string
+type AnimeData = {
+  nombre: string
+  genero: string[]
+  demografia: string
+  estudioAnimacion: string
+  añoDebut: number
+  añoFinalizacion: number | null
+  capitulos: number
+  autor: string
 }
 
-interface CharacterAttributesTableProps {
-  guessedCharacter: CharacterAttributes
-  targetCharacter: CharacterAttributes
+interface AnimeAttributesTableProps {
+  guessedCharacter: AnimeData
+  targetCharacter: AnimeData
   showHeader?: boolean
 }
 
@@ -27,40 +22,46 @@ export default function CharacterAttributesTable({
   guessedCharacter,
   targetCharacter,
   showHeader = false,
-}: CharacterAttributesTableProps) {
+}: AnimeAttributesTableProps) {
   // Helper function to determine the comparison status
   const getComparisonStatus = (
-    guessedValue: string,
-    targetValue: string,
+    guessedValue: string | number | string[] | null,
+    targetValue: string | number | string[] | null,
     isNumeric = false,
+    isArray = false,
   ): "correct" | "partial" | "incorrect" | "higher" | "lower" => {
     if (guessedValue === targetValue) {
       return "correct"
     }
 
-    if (isNumeric) {
-      // Extract numeric values for comparison
-      const extractNumber = (str: string) => {
-        const match = str.match(/\d+(\.\d+)?/)
-        return match ? Number.parseFloat(match[0]) : 0
+    if (isArray && Array.isArray(guessedValue) && Array.isArray(targetValue)) {
+      // Check if arrays have any common elements
+      const intersection = guessedValue.filter(x => targetValue.includes(x))
+      if (intersection.length > 0) {
+        return "partial"
       }
+      return "incorrect"
+    }
 
-      const guessedNum = extractNumber(guessedValue)
-      const targetNum = extractNumber(targetValue)
+    if (isNumeric) {
+      const guessedNum = Number(guessedValue)
+      const targetNum = Number(targetValue)
 
       if (guessedNum > targetNum) {
-        return "lower" // The guessed value is higher, so the target is lower
+        return "lower"
       } else {
-        return "higher" // The guessed value is lower, so the target is higher
+        return "higher"
       }
     }
 
-    // Check for partial matches (e.g., both contain "Straw Hat")
-    if (
-      guessedValue.toLowerCase().includes(targetValue.toLowerCase()) ||
-      targetValue.toLowerCase().includes(guessedValue.toLowerCase())
-    ) {
-      return "partial"
+    // Check for partial matches in strings
+    if (typeof guessedValue === 'string' && typeof targetValue === 'string') {
+      if (
+        guessedValue.toLowerCase().includes(targetValue.toLowerCase()) ||
+        targetValue.toLowerCase().includes(guessedValue.toLowerCase())
+      ) {
+        return "partial"
+      }
     }
 
     return "incorrect"
@@ -94,58 +95,54 @@ export default function CharacterAttributesTable({
   // Define the attributes to display in the table
   const attributes = [
     {
-      label: "PERSONAJE",
-      guessedValue: guessedCharacter.avatar,
-      targetValue: targetCharacter.avatar,
-      isImage: true,
+      label: "ANIME",
+      guessedValue: guessedCharacter.nombre,
+      targetValue: targetCharacter.nombre,
     },
     {
       label: "GÉNERO",
-      guessedValue: guessedCharacter.gender,
-      targetValue: targetCharacter.gender,
+      guessedValue: guessedCharacter.genero,
+      targetValue: targetCharacter.genero,
+      isArray: true,
     },
     {
-      label: "AFILIACIÓN",
-      guessedValue: guessedCharacter.affiliation,
-      targetValue: targetCharacter.affiliation,
+      label: "DEMOGRAFÍA",
+      guessedValue: guessedCharacter.demografia,
+      targetValue: targetCharacter.demografia,
     },
     {
-      label: "FRUTA DEL DIABLO",
-      guessedValue: guessedCharacter.devilFruit,
-      targetValue: targetCharacter.devilFruit,
+      label: "ESTUDIO",
+      guessedValue: guessedCharacter.estudioAnimacion,
+      targetValue: targetCharacter.estudioAnimacion,
     },
     {
-      label: "HAKI",
-      guessedValue: guessedCharacter.haki,
-      targetValue: targetCharacter.haki,
-    },
-    {
-      label: "ÚLTIMA RECOMPENSA",
-      guessedValue: guessedCharacter.bounty,
-      targetValue: targetCharacter.bounty,
+      label: "AÑO DEBUT",
+      guessedValue: guessedCharacter.añoDebut,
+      targetValue: targetCharacter.añoDebut,
       isNumeric: true,
     },
     {
-      label: "ALTURA",
-      guessedValue: guessedCharacter.height,
-      targetValue: targetCharacter.height,
+      label: "AÑO FIN",
+      guessedValue: guessedCharacter.añoFinalizacion,
+      targetValue: targetCharacter.añoFinalizacion,
       isNumeric: true,
     },
     {
-      label: "ORIGEN",
-      guessedValue: guessedCharacter.origin,
-      targetValue: targetCharacter.origin,
+      label: "CAPÍTULOS",
+      guessedValue: guessedCharacter.capitulos,
+      targetValue: targetCharacter.capitulos,
+      isNumeric: true,
     },
     {
-      label: "PRIMER ARCO",
-      guessedValue: guessedCharacter.firstArc,
-      targetValue: targetCharacter.firstArc,
+      label: "AUTOR",
+      guessedValue: guessedCharacter.autor,
+      targetValue: targetCharacter.autor,
     },
   ]
 
   return (
     <div className="w-full">
-      <div className="grid grid-cols-9 gap-1">
+      <div className="grid grid-cols-8 gap-1">
         {/* Header row - only shown if showHeader is true */}
         {showHeader &&
           attributes.map((attr, index) => (
@@ -154,13 +151,14 @@ export default function CharacterAttributesTable({
             </div>
           ))}
 
-        {/* Character attributes row */}
+        {/* Anime attributes row */}
         {attributes.map((attr, index) => {
-          const status = attr.isImage
-            ? guessedCharacter.id === targetCharacter.id
-              ? "correct"
-              : "incorrect"
-            : getComparisonStatus(attr.guessedValue, attr.targetValue, attr.isNumeric)
+          const status = getComparisonStatus(
+            attr.guessedValue,
+            attr.targetValue,
+            attr.isNumeric,
+            attr.isArray
+          )
 
           const bgColor = getBackgroundColor(status)
           const directionIcon = getDirectionIcon(status)
@@ -170,21 +168,14 @@ export default function CharacterAttributesTable({
               key={`attr-${index}`}
               className={cn("h-16 flex items-center justify-center text-center p-1 rounded-md", bgColor)}
             >
-              {attr.isImage ? (
-                <div className="w-12 h-12 relative">
-                  <Image
-                    src={attr.guessedValue || "/placeholder.svg"}
-                    alt="Character"
-                    fill
-                    className="object-cover rounded-md"
-                  />
-                </div>
-              ) : (
-                <div className="text-xs font-medium">
-                  {directionIcon && <div className="text-lg font-bold">{directionIcon}</div>}
-                  {attr.guessedValue}
-                </div>
-              )}
+              <div className="text-xs font-medium">
+                {directionIcon && <div className="text-lg font-bold">{directionIcon}</div>}
+                {Array.isArray(attr.guessedValue) 
+                  ? attr.guessedValue.join(", ")
+                  : attr.guessedValue === null 
+                    ? "En emisión" 
+                    : attr.guessedValue}
+              </div>
             </div>
           )
         })}
