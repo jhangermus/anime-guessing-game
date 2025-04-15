@@ -44,6 +44,18 @@ export default function CharacterAttributesTable({
     }
 
     if (isNumeric) {
+      // Manejar el caso especial de "en emisión" (null)
+      if (guessedValue === null || targetValue === null) {
+        // Si el anime adivinado está en emisión, siempre mostrar flecha hacia abajo
+        if (guessedValue === null) {
+          return "lower"
+        }
+        // Si el objetivo está en emisión y el adivinado no, mostrar flecha hacia abajo
+        if (targetValue === null) {
+          return "lower"
+        }
+      }
+
       const guessedNum = Number(guessedValue)
       const targetNum = Number(targetValue)
 
@@ -87,9 +99,22 @@ export default function CharacterAttributesTable({
 
   // Get the appropriate icon for higher/lower
   const getDirectionIcon = (status: "correct" | "partial" | "incorrect" | "higher" | "lower") => {
-    if (status === "higher") return "▲"
-    if (status === "lower") return "▼"
+    if (status === "higher") return "↑"
+    if (status === "lower") return "↓"
     return null
+  }
+
+  // Helper function to determine text size based on content length
+  const getTextSize = (value: string | number | string[] | null): string => {
+    if (!value) return "text-sm";
+    
+    let textContent = Array.isArray(value) 
+      ? value.join(", ")
+      : value?.toString() || "";
+
+    if (textContent.length > 30) return "text-xs";
+    if (textContent.length > 20) return "text-[13px]";
+    return "text-sm";
   }
 
   // Define the attributes to display in the table
@@ -162,21 +187,22 @@ export default function CharacterAttributesTable({
 
           const bgColor = getBackgroundColor(status)
           const directionIcon = getDirectionIcon(status)
+          const textSize = getTextSize(attr.guessedValue)
 
           return (
             <div
               key={`attr-${index}`}
               className={cn(
-                "min-h-[4rem] flex items-center justify-center text-center p-2 rounded-md break-words",
+                "min-h-[4rem] flex items-center justify-center text-center p-2 rounded-md",
                 bgColor
               )}
             >
-              <div className="text-xs font-medium w-full whitespace-normal">
-                {directionIcon && <div className="text-lg font-bold">{directionIcon}</div>}
+              <div className={cn("leading-tight font-medium w-full", textSize)}>
+                {directionIcon && <div className="text-xl font-bold mb-1">{directionIcon}</div>}
                 {Array.isArray(attr.guessedValue) 
                   ? attr.guessedValue.join(", ")
                   : attr.guessedValue === null 
-                    ? "En emisión" 
+                    ? "No finalizado" 
                     : attr.guessedValue}
               </div>
             </div>

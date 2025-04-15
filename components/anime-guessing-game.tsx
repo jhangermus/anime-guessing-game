@@ -310,7 +310,10 @@ export default function AnimeGuessingGame() {
                   "CAPÍTULOS",
                   "AUTOR",
                 ].map((label, index) => (
-                  <div key={index} className="text-xs font-medium text-center text-blue-800 truncate px-1" style={{ minWidth: 0 }}>
+                  <div 
+                    key={index} 
+                    className="text-[10px] leading-tight font-medium text-center text-blue-800 px-1"
+                  >
                     {label}
                   </div>
                 ))}
