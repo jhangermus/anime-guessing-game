@@ -1,46 +1,46 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Book, Apple } from "lucide-react"
+import { Sword, Tv } from "lucide-react"
 
 interface HintButtonsProps {
-  onFirstAppearanceHint: () => void
-  onDevilFruitHint: () => void
-  firstAppearanceAttempts: number
-  devilFruitAttempts: number
+  onGenreHint: () => void
+  onEpisodeCountHint: () => void
+  genreAttempts: number
+  episodeCountAttempts: number
 }
 
 export default function HintButtons({
-  onFirstAppearanceHint,
-  onDevilFruitHint,
-  firstAppearanceAttempts,
-  devilFruitAttempts,
+  onGenreHint,
+  onEpisodeCountHint,
+  genreAttempts,
+  episodeCountAttempts,
 }: HintButtonsProps) {
   return (
     <div className="grid grid-cols-2 gap-4 mb-6">
       <Button
         variant="outline"
         className="bg-gray-100 border-gray-300 h-auto py-3 flex flex-col items-center"
-        onClick={onFirstAppearanceHint}
+        onClick={onGenreHint}
       >
-        <Book className="h-6 w-6 mb-1 text-gray-600" />
+        <Sword className="h-6 w-6 mb-1 text-gray-600" />
         <div className="text-xs text-center text-gray-700">
-          PRIMERA PISTA DE LA APARICIÓN
+          PISTA DE GÉNERO
           <br />
-          EN {firstAppearanceAttempts} INTENTOS
+          EN {genreAttempts} INTENTOS
         </div>
       </Button>
 
       <Button
         variant="outline"
         className="bg-gray-100 border-gray-300 h-auto py-3 flex flex-col items-center"
-        onClick={onDevilFruitHint}
+        onClick={onEpisodeCountHint}
       >
-        <Apple className="h-6 w-6 mb-1 text-gray-600" />
+        <Tv className="h-6 w-6 mb-1 text-gray-600" />
         <div className="text-xs text-center text-gray-700">
-          FRUTA DEL DIABLO PISTA
+          PISTA DE CAPÍTULOS
           <br />
-          EN {devilFruitAttempts} INTENTOS
+          EN {episodeCountAttempts} INTENTOS
         </div>
       </Button>
     </div>

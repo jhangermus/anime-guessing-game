@@ -46,8 +46,8 @@ export default function AnimeGuessingGame() {
   const inputRef = useRef<HTMLInputElement>(null)
   const [showFirstAppearanceHint, setShowFirstAppearanceHint] = useState(false)
   const [showDevilFruitHint, setShowDevilFruitHint] = useState(false)
-  const [firstAppearanceAttempts] = useState(4)
-  const [devilFruitAttempts] = useState(7)
+  const [genreAttempts, setGenreAttempts] = useState(4)
+  const [episodeCountAttempts, setEpisodeCountAttempts] = useState(7)
 
   // Initialize the game with a random anime
   useEffect(() => {
@@ -98,16 +98,19 @@ export default function AnimeGuessingGame() {
   }, [gameState])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
-    setGuessInput(value)
+    const value = e.target.value.toLowerCase()
+    setGuessInput(e.target.value)
 
     if (value.trim()) {
-      // Filter animes based on input
-      const filtered = animeData.filter((anime) =>
-        anime.nombre.toLowerCase().includes(value.toLowerCase())
-      )
+      // Filter animes based on input and exclude previously guessed animes
+      const filtered = animeData.filter((anime) => {
+        const matchesInput = anime.nombre.toLowerCase().includes(value)
+        const notGuessed = !guessHistory.some(guessed => guessed.nombre === anime.nombre)
+        return matchesInput && notGuessed
+      })
+      
       setSuggestions(filtered.slice(0, 5)) // Limit to 5 suggestions
-      setShowSuggestions(true)
+      setShowSuggestions(filtered.length > 0)
     } else {
       setSuggestions([])
       setShowSuggestions(false)
@@ -131,6 +134,22 @@ export default function AnimeGuessingGame() {
     setGuessHistory([anime, ...guessHistory])
     setGuessCount(guessCount + 1)
     setShowColorLegend(true)
+
+    // Decrease hint counters if guess is incorrect
+    if (anime.nombre !== todaysAnime?.nombre) {
+      if (genreAttempts > 0) {
+        setGenreAttempts(prev => prev - 1)
+        if (genreAttempts === 1) {
+          setShowFirstAppearanceHint(true)
+        }
+      }
+      if (episodeCountAttempts > 0) {
+        setEpisodeCountAttempts(prev => prev - 1)
+        if (episodeCountAttempts === 1) {
+          setShowDevilFruitHint(true)
+        }
+      }
+    }
 
     // Check if guess is correct
     if (anime.nombre === todaysAnime?.nombre) {
@@ -171,18 +190,12 @@ export default function AnimeGuessingGame() {
     setShowHint(false)
     setShowFirstAppearanceHint(false)
     setShowDevilFruitHint(false)
+    setGenreAttempts(4)
+    setEpisodeCountAttempts(7)
     setSuggestions([])
     setShowSuggestions(false)
     setShowColorLegend(false)
     setNextAnimeTime({ hours: 12, minutes: 1, seconds: 18 })
-  }
-
-  const handleFirstAppearanceHint = () => {
-    setShowFirstAppearanceHint(true)
-  }
-
-  const handleDevilFruitHint = () => {
-    setShowDevilFruitHint(true)
   }
 
   return (
@@ -207,10 +220,10 @@ export default function AnimeGuessingGame() {
 
         {/* Hint Buttons */}
         <HintButtons
-          onFirstAppearanceHint={handleFirstAppearanceHint}
-          onDevilFruitHint={handleDevilFruitHint}
-          firstAppearanceAttempts={firstAppearanceAttempts}
-          devilFruitAttempts={devilFruitAttempts}
+          onGenreHint={() => setShowFirstAppearanceHint(true)}
+          onEpisodeCountHint={() => setShowDevilFruitHint(true)}
+          genreAttempts={genreAttempts}
+          episodeCountAttempts={episodeCountAttempts}
         />
 
         {/* Guess Input Form with Autocomplete */}
@@ -248,15 +261,6 @@ export default function AnimeGuessingGame() {
                   className="flex items-center p-2 hover:bg-gray-100 cursor-pointer border-b border-gray-100"
                   onClick={() => handleSuggestionClick(anime)}
                 >
-                  <div className="flex-shrink-0 w-10 h-10 mr-3">
-                    <Image
-                      src={"/placeholder.svg"}
-                      alt={anime.nombre}
-                      width={40}
-                      height={40}
-                      className="rounded-full"
-                    />
-                  </div>
                   <div className="flex-1">
                     <div className="font-medium">{anime.nombre}</div>
                   </div>
