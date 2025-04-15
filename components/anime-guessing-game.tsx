@@ -403,22 +403,9 @@ export default function AnimeGuessingGame() {
   }
 
   return (
-    <div className="w-full max-w-3xl relative min-h-[600px]">
-      {/* Background Image */}
-      <div 
-        className="absolute inset-0 -z-10 rounded-xl"
-        style={{
-          backgroundImage: "url('C:\Users\TECNO\Downloads\anime-guess\public\background.jpg')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          opacity: 0.9,
-          filter: 'brightness(0.9)'
-        }}
-      />
-
+    <div className="w-full relative">
       {/* Main Game Container */}
-      <div className="bg-amber-50 border-4 border-amber-900/30 rounded-xl p-6 shadow-xl relative">
+      <div className="bg-amber-50/90 border-4 border-amber-900/30 rounded-xl p-6 shadow-xl relative">
         {/* Navigation Icons */}
         <div className="flex justify-center gap-4 mb-4">
           <div className="flex bg-amber-200 rounded-full p-1">
