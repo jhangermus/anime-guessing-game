@@ -167,8 +167,9 @@ export default function CharacterAttributesTable({
             <div
               key={`attr-${index}`}
               className={cn("h-16 flex items-center justify-center text-center p-1 rounded-md", bgColor)}
+              style={{ minWidth: 0 }}
             >
-              <div className="text-xs font-medium">
+              <div className="text-xs font-medium truncate w-full">
                 {directionIcon && <div className="text-lg font-bold">{directionIcon}</div>}
                 {Array.isArray(attr.guessedValue) 
                   ? attr.guessedValue.join(", ")

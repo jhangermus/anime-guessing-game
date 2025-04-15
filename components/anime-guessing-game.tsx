@@ -299,18 +299,18 @@ export default function AnimeGuessingGame() {
 
             {/* Header row - shown only once at the top */}
             <div className="bg-blue-100 border border-blue-500 rounded-md p-1">
-              <div className="grid grid-cols-9 gap-1">
+              <div className="grid grid-cols-8 gap-1">
                 {[
                   "ANIME",
                   "GÉNERO",
                   "DEMOGRAFÍA",
-                  "ESTUDIO DE ANIMACIÓN",
-                  "AÑO DE DEBUT",
-                  "AÑO DE FINALIZACIÓN",
+                  "ESTUDIO",
+                  "AÑO DEBUT",
+                  "AÑO FIN",
                   "CAPÍTULOS",
                   "AUTOR",
                 ].map((label, index) => (
-                  <div key={index} className="text-xs font-medium text-center text-blue-800 truncate px-1">
+                  <div key={index} className="text-xs font-medium text-center text-blue-800 truncate px-1" style={{ minWidth: 0 }}>
                     {label}
                   </div>
                 ))}
