@@ -61,7 +61,6 @@ export default function AnimeGuessingGame() {
 
     fetchTodaysAnime()
   }, [])
-
   // Handle search input changes
   const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
@@ -114,8 +113,42 @@ export default function AnimeGuessingGame() {
       setGameState("lost")
     }
 
+    // Disminuir los intentos de pistas si el intento es incorrecto
+    if (anime.nombre !== todaysAnime?.nombre) {
+      if (genreAttempts > 0) {
+        setGenreAttempts(prev => {
+          const newValue = prev - 1
+          // Mostrar la pista automáticamente cuando llegue a 0
+          if (newValue === 0) {
+            setShowGenreHint(true)
+          }
+          return newValue
+        })
+      }
+      if (episodeCountAttempts > 0) {
+        setEpisodeCountAttempts(prev => {
+          const newValue = prev - 1
+          // Mostrar la pista automáticamente cuando llegue a 0
+          if (newValue === 0) {
+            setShowEpisodeCountHint(true)
+          }
+          return newValue
+        })
+      }
+    }
+
     setGuessInput("")
+    setSuggestions([])
     setShowSuggestions(false)
+
+    // Mantener el foco en el input si el juego sigue activo
+    if (gameState === "playing") {
+      setTimeout(() => {
+        if (inputRef.current) {
+          inputRef.current.focus()
+        }
+      }, 0)
+    }
   }
 
   // Handle clicks outside the suggestions dropdown to close it
@@ -155,42 +188,25 @@ export default function AnimeGuessingGame() {
     return () => clearInterval(timer)
   }, [gameState])
 
-  const handleGuessSubmit = (e: React.FormEvent) => {
+  const handleGuessSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-
     if (!guessInput.trim() || !todaysAnime) return
 
-    // Find the anime in our database
-    const guessedAnime = animeData.find(
-      (anime) => anime.nombre.toLowerCase() === guessInput.toLowerCase()
-    )
+    try {
+      const response = await fetch('/api/lista')
+      const allAnimes: AnimeData[] = await response.json()
+      const guessedAnime = allAnimes.find(
+        (anime) => anime.nombre.toLowerCase() === guessInput.toLowerCase()
+      )
 
-    if (guessedAnime) {
-      submitGuess(guessedAnime)
+      if (guessedAnime) {
+        submitGuess(guessedAnime)
+      }
+    } catch (error) {
+      console.error('Error submitting guess:', error)
     }
-
-    setSuggestions([])
-    setShowSuggestions(false)
   }
-
-  const resetGame = () => {
-    const randomIndex = Math.floor(Math.random() * animeData.length)
-    setTodaysAnime(animeData[randomIndex])
-    setGuessInput("")
-    setGuessHistory([])
-    setGameState("playing")
-    setGuessCount(0)
-    setShowHint(false)
-    setShowGenreHint(false)
-    setShowEpisodeCountHint(false)
-    setGenreAttempts(4)
-    setEpisodeCountAttempts(7)
-    setSuggestions([])
-    setShowSuggestions(false)
-    setShowColorLegend(false)
-    setNextAnimeTime({ hours: 12, minutes: 1, seconds: 18 })
-  }
-
+  console.log(todaysAnime, showEpisodeCountHint)
   return (
     <div className="w-full relative">
       {/* Main Game Container */}
@@ -202,7 +218,6 @@ export default function AnimeGuessingGame() {
             ¡ADIVINA EL ANIME HOY!
           </h1>
           <p className="text-center text-amber-800">Escribe el nombre del anime.</p>
-
           {/* Hints Section */}
           {todaysAnime && (showGenreHint || showEpisodeCountHint) && (
             <div className="mt-3 p-2 bg-amber-200 rounded-lg text-center text-amber-900">
@@ -213,7 +228,7 @@ export default function AnimeGuessingGame() {
               )}
               {showEpisodeCountHint && (
                 <p className="font-medium">
-                  Número de capítulos: {todaysAnime.capitulos}
+                  Número de capítulos: {todaysAnime.capitulos || 0}
                 </p>
               )}
             </div>
