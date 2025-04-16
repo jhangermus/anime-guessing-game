@@ -103,7 +103,8 @@ export default function AnimeGuessingGame() {
   const submitGuess = (anime: AnimeData) => {
     if (gameState !== "playing") return
 
-    setGuessHistory([...guessHistory, anime])
+    // Agregar el nuevo intento al principio del historial
+    setGuessHistory([anime, ...guessHistory])
     setGuessCount(guessCount + 1)
     setShowColorLegend(true)
 
