@@ -1,0 +1,722 @@
+[
+  {
+    "nombre": "Attack on Titan",
+    "genero": ["Acción", "Drama", "Fantasía oscura"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "Wit Studio, MAPPA",
+    "añoDebut": 2013,
+    "añoFinalizacion": 2023,
+    "capitulos": 89,
+    "autor": "Hajime Isayama"
+  },
+  {
+    "nombre": "Death Note",
+    "genero": ["Suspenso", "Psicológico", "Sobrenatural"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "Madhouse",
+    "añoDebut": 2006,
+    "añoFinalizacion": 2007,
+    "capitulos": 37,
+    "autor": "Tsugumi Ohba"
+  },
+  {
+    "nombre": "Fullmetal Alchemist: Brotherhood",
+    "genero": ["Acción", "Aventura", "Fantasía"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "Bones",
+    "añoDebut": 2009,
+    "añoFinalizacion": 2010,
+    "capitulos": 64,
+    "autor": "Hiromu Arakawa"
+  },
+  {
+    "nombre": "Demon Slayer",
+    "genero": ["Acción", "Fantasía oscura", "Aventura"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "Ufotable",
+    "añoDebut": 2019,
+    "añoFinalizacion": null,
+    "capitulos": 55,
+    "autor": "Koyoharu Gotouge"
+  },
+  {
+    "nombre": "One Piece",
+    "genero": ["Acción", "Aventura", "Fantasía"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "Toei Animation",
+    "añoDebut": 1999,
+    "añoFinalizacion": null,
+    "capitulos": 1100,
+    "autor": "Eiichiro Oda"
+  },
+  {
+    "nombre": "Naruto",
+    "genero": ["Acción", "Aventura", "Fantasía"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "Pierrot",
+    "añoDebut": 2002,
+    "añoFinalizacion": 2007,
+    "capitulos": 220,
+    "autor": "Masashi Kishimoto"
+  },
+  {
+    "nombre": "Bleach",
+    "genero": ["Acción", "Aventura", "Sobrenatural"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "Pierrot",
+    "añoDebut": 2004,
+    "añoFinalizacion": 2012,
+    "capitulos": 366,
+    "autor": "Tite Kubo"
+  },
+  {
+    "nombre": "My Hero Academia",
+    "genero": ["Acción", "Aventura", "Superhéroes"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "Bones",
+    "añoDebut": 2016,
+    "añoFinalizacion": null,
+    "capitulos": 138,
+    "autor": "Kōhei Horikoshi"
+  },
+  {
+    "nombre": "Jujutsu Kaisen",
+    "genero": ["Acción", "Fantasía oscura", "Sobrenatural"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "MAPPA",
+    "añoDebut": 2020,
+    "añoFinalizacion": null,
+    "capitulos": 47,
+    "autor": "Gege Akutami"
+  },
+  {
+    "nombre": "Hunter x Hunter",
+    "genero": ["Acción", "Aventura", "Fantasía"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "Madhouse",
+    "añoDebut": 2011,
+    "añoFinalizacion": 2014,
+    "capitulos": 148,
+    "autor": "Yoshihiro Togashi"
+  },
+  {
+    "nombre": "Tokyo Revengers",
+    "genero": ["Acción", "Drama", "Suspenso"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "Liden Films",
+    "añoDebut": 2021,
+    "añoFinalizacion": null,
+    "capitulos": 37,
+    "autor": "Ken Wakui"
+  },
+  {
+    "nombre": "Vinland Saga",
+    "genero": ["Acción", "Aventura", "Drama"],
+    "demografia": "Seinen",
+    "estudioAnimacion": "Wit Studio",
+    "añoDebut": 2019,
+    "añoFinalizacion": null,
+    "capitulos": 48,
+    "autor": "Makoto Yukimura"
+  },
+  {
+    "nombre": "Chainsaw Man",
+    "genero": ["Acción", "Fantasía oscura", "Horror"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "MAPPA",
+    "añoDebut": 2022,
+    "añoFinalizacion": null,
+    "capitulos": 12,
+    "autor": "Tatsuki Fujimoto"
+  },
+  {
+    "nombre": "Steins;Gate",
+    "genero": ["Ciencia ficción", "Suspenso", "Drama"],
+    "demografia": "Seinen",
+    "estudioAnimacion": "White Fox",
+    "añoDebut": 2011,
+    "añoFinalizacion": 2011,
+    "capitulos": 24,
+    "autor": "Chiyomaru Shikura"
+  },
+  {
+    "nombre": "Cowboy Bebop",
+    "genero": ["Acción", "Aventura", "Ciencia ficción"],
+    "demografia": "Seinen",
+    "estudioAnimacion": "Sunrise",
+    "añoDebut": 1998,
+    "añoFinalizacion": 1999,
+    "capitulos": 26,
+    "autor": "Hajime Yatate"
+  },
+  {
+    "nombre": "Neon Genesis Evangelion",
+    "genero": ["Mecha", "Psicológico", "Drama"],
+    "demografia": "Seinen",
+    "estudioAnimacion": "Gainax",
+    "añoDebut": 1995,
+    "añoFinalizacion": 1996,
+    "capitulos": 26,
+    "autor": "Hideaki Anno"
+  },
+  {
+    "nombre": "Spy x Family",
+    "genero": ["Acción", "Comedia", "Drama"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "Wit Studio, CloverWorks",
+    "añoDebut": 2022,
+    "añoFinalizacion": null,
+    "capitulos": 25,
+    "autor": "Tatsuya Endo"
+  },
+  {
+    "nombre": "Dragon Ball Z",
+    "genero": ["Acción", "Aventura", "Fantasía"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "Toei Animation",
+    "añoDebut": 1989,
+    "añoFinalizacion": 1996,
+    "capitulos": 291,
+    "autor": "Akira Toriyama"
+  },
+  {
+    "nombre": "Sword Art Online",
+    "genero": ["Acción", "Aventura", "Romance"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "A-1 Pictures",
+    "añoDebut": 2012,
+    "añoFinalizacion": 2020,
+    "capitulos": 96,
+    "autor": "Reki Kawahara"
+  },
+  {
+    "nombre": "The Promised Neverland",
+    "genero": ["Suspenso", "Psicológico", "Horror"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "CloverWorks",
+    "añoDebut": 2019,
+    "añoFinalizacion": 2021,
+    "capitulos": 23,
+    "autor": "Kaiu Shirai"
+  },
+  {
+    "nombre": "Black Clover",
+    "genero": ["Acción", "Aventura", "Fantasía"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "Pierrot",
+    "añoDebut": 2017,
+    "añoFinalizacion": 2021,
+    "capitulos": 170,
+    "autor": "Yūki Tabata"
+  },
+  {
+    "nombre": "Haikyuu!!",
+    "genero": ["Deportes", "Comedia", "Drama"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "Production I.G",
+    "añoDebut": 2014,
+    "añoFinalizacion": 2020,
+    "capitulos": 85,
+    "autor": "Haruichi Furudate"
+  },
+  {
+    "nombre": "Dr. Stone",
+    "genero": ["Aventura", "Ciencia ficción", "Comedia"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "TMS Entertainment",
+    "añoDebut": 2019,
+    "añoFinalizacion": null,
+    "capitulos": 47,
+    "autor": "Riichiro Inagaki"
+  },
+  {
+    "nombre": "Mob Psycho 100",
+    "genero": ["Acción", "Comedia", "Sobrenatural"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "Bones",
+    "añoDebut": 2016,
+    "añoFinalizacion": 2022,
+    "capitulos": 37,
+    "autor": "ONE"
+  },
+  {
+    "nombre": "Re:Zero",
+    "genero": ["Drama", "Fantasía", "Suspenso"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "White Fox",
+    "añoDebut": 2016,
+    "añoFinalizacion": null,
+    "capitulos": 50,
+    "autor": "Tappei Nagatsuki"
+  },
+  {
+    "nombre": "Code Geass",
+    "genero": ["Mecha", "Psicológico", "Drama"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "Sunrise",
+    "añoDebut": 2006,
+    "añoFinalizacion": 2008,
+    "capitulos": 50,
+    "autor": "Gorō Taniguchi"
+  },
+  {
+    "nombre": "JoJo's Bizarre Adventure",
+    "genero": ["Acción", "Aventura", "Sobrenatural"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "David Production",
+    "añoDebut": 2012,
+    "añoFinalizacion": null,
+    "capitulos": 190,
+    "autor": "Hirohiko Araki"
+  },
+  {
+    "nombre": "Fire Force",
+    "genero": ["Acción", "Fantasía", "Shōnen"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "David Production",
+    "añoDebut": 2019,
+    "añoFinalizacion": null,
+    "capitulos": 48,
+    "autor": "Atsushi Ōkubo"
+  },
+  {
+    "nombre": "Blue Lock",
+    "genero": ["Deportes", "Acción", "Drama"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "Eight Bit",
+    "añoDebut": 2022,
+    "añoFinalizacion": null,
+    "capitulos": 24,
+    "autor": "Muneyuki Kaneshiro"
+  },
+  {
+    "nombre": "Parasyte",
+    "genero": ["Horror", "Psicológico", "Acción"],
+    "demografia": "Seinen",
+    "estudioAnimacion": "Madhouse",
+    "añoDebut": 2014,
+    "añoFinalizacion": 2015,
+    "capitulos": 24,
+    "autor": "Hitoshi Iwaaki"
+  },
+  {
+    "nombre": "Erased",
+    "genero": ["Misterio", "Psicológico", "Suspenso"],
+    "demografia": "Seinen",
+    "estudioAnimacion": "A-1 Pictures",
+    "añoDebut": 2016,
+    "añoFinalizacion": 2016,
+    "capitulos": 12,
+    "autor": "Kei Sanbe"
+  },
+  {
+    "nombre": "Made in Abyss",
+    "genero": ["Aventura", "Fantasía oscura", "Drama"],
+    "demografia": "Seinen",
+    "estudioAnimacion": "Kinema Citrus",
+    "añoDebut": 2017,
+    "añoFinalizacion": null,
+    "capitulos": 13,
+    "autor": "Akihito Tsukushi"
+  },
+  {
+    "nombre": "Psycho-Pass",
+    "genero": ["Ciencia ficción", "Policíaco", "Psicológico"],
+    "demografia": "Seinen",
+    "estudioAnimacion": "Production I.G",
+    "añoDebut": 2012,
+    "añoFinalizacion": 2013,
+    "capitulos": 22,
+    "autor": "Gen Urobuchi"
+  },
+  {
+    "nombre": "Berserk",
+    "genero": ["Acción", "Fantasía oscura", "Horror"],
+    "demografia": "Seinen",
+    "estudioAnimacion": "OLM, Inc.",
+    "añoDebut": 1997,
+    "añoFinalizacion": 1998,
+    "capitulos": 25,
+    "autor": "Kentaro Miura"
+  },
+  {
+    "nombre": "Hellsing Ultimate",
+    "genero": ["Acción", "Horror", "Sobrenatural"],
+    "demografia": "Seinen",
+    "estudioAnimacion": "Satelight, Madhouse, Graphinica",
+    "añoDebut": 2006,
+    "añoFinalizacion": 2012,
+    "capitulos": 10,
+    "autor": "Kōta Hirano"
+  },
+  {
+    "nombre": "Ghost in the Shell: Stand Alone Complex",
+    "genero": ["Ciencia ficción", "Policíaco", "Psicológico"],
+    "demografia": "Seinen",
+    "estudioAnimacion": "Production I.G",
+    "añoDebut": 2002,
+    "añoFinalizacion": 2005,
+    "capitulos": 52,
+    "autor": "Masamune Shirow"
+  },
+  {
+    "nombre": "Monster",
+    "genero": ["Misterio", "Psicológico", "Drama"],
+    "demografia": "Seinen",
+    "estudioAnimacion": "Madhouse",
+    "añoDebut": 2004,
+    "añoFinalizacion": 2005,
+    "capitulos": 74,
+    "autor": "Naoki Urasawa"
+  },
+  {
+    "nombre": "Vagabond",
+    "genero": ["Acción", "Aventura", "Drama"],
+    "demografia": "Seinen",
+    "estudioAnimacion": "N/A (solo manga)",
+    "añoDebut": null,
+    "añoFinalizacion": null,
+    "capitulos": null,
+    "autor": "Takehiko Inoue"
+  },
+  {
+    "nombre": "Kingdom",
+    "genero": ["Acción", "Aventura", "Histórico"],
+    "demografia": "Seinen",
+    "estudioAnimacion": "Pierrot, Studio Signpost",
+    "añoDebut": 2012,
+    "añoFinalizacion": null,
+    "capitulos": 130,
+    "autor": "Yasuhisa Hara"
+  },
+  {
+    "nombre": "Golden Kamuy",
+    "genero": ["Aventura", "Histórico", "Acción"],
+    "demografia": "Seinen",
+    "estudioAnimacion": "Geno Studio",
+    "añoDebut": 2018,
+    "añoFinalizacion": null,
+    "capitulos": 48,
+    "autor": "Satoru Noda"
+  },
+  {
+    "nombre": "Dorohedoro",
+    "genero": ["Acción", "Fantasía oscura", "Comedia"],
+    "demografia": "Seinen",
+    "estudioAnimacion": "MAPPA",
+    "añoDebut": 2020,
+    "añoFinalizacion": 2020,
+    "capitulos": 12,
+    "autor": "Q Hayashida"
+  },
+  {
+    "nombre": "Blame!",
+    "genero": ["Ciencia ficción", "Cyberpunk", "Acción"],
+    "demografia": "Seinen",
+    "estudioAnimacion": "Polygon Pictures",
+    "añoDebut": 2017,
+    "añoFinalizacion": 2017,
+    "capitulos": 1,
+    "autor": "Tsutomu Nihei"
+  },
+  {
+    "nombre": "Akira",
+    "genero": ["Ciencia ficción", "Cyberpunk", "Acción"],
+    "demografia": "Seinen",
+    "estudioAnimacion": "Tokyo Movie Shinsha",
+    "añoDebut": 1988,
+    "añoFinalizacion": 1988,
+    "capitulos": 1,
+    "autor": "Katsuhiro Otomo"
+  },
+  {
+    "nombre": "Your Name",
+    "genero": ["Romance", "Drama", "Fantasía"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "CoMix Wave Films",
+    "añoDebut": 2016,
+    "añoFinalizacion": 2016,
+    "capitulos": 1,
+    "autor": "Makoto Shinkai"
+  },
+  {
+    "nombre": "Weathering With You",
+    "genero": ["Romance", "Drama", "Fantasía"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "CoMix Wave Films",
+    "añoDebut": 2019,
+    "añoFinalizacion": 2019,
+    "capitulos": 1,
+    "autor": "Makoto Shinkai"
+  },
+  {
+    "nombre": "A Silent Voice",
+    "genero": ["Drama", "Romance", "Vida escolar"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "Kyoto Animation",
+    "añoDebut": 2016,
+    "añoFinalizacion": 2016,
+    "capitulos": 1,
+    "autor": "Yoshitoki Ōima"
+  },
+  {
+    "nombre": "Grave of the Fireflies",
+    "genero": ["Drama", "Histórico", "Guerra"],
+    "demografia": "Seinen",
+    "estudioAnimacion": "Studio Ghibli",
+    "añoDebut": 1988,
+    "añoFinalizacion": 1988,
+    "capitulos": 1,
+    "autor": "Akiyuki Nosaka"
+  },
+  {
+    "nombre": "Spirited Away",
+    "genero": ["Aventura", "Fantasía", "Drama"],
+    "demografia": "Shōjo",
+    "estudioAnimacion": "Studio Ghibli",
+    "añoDebut": 2001,
+    "añoFinalizacion": 2001,
+    "capitulos": 1,
+    "autor": "Hayao Miyazaki"
+  },
+  {
+    "nombre": "Princess Mononoke",
+    "genero": ["Aventura", "Fantasía", "Acción"],
+    "demografia": "Seinen",
+    "estudioAnimacion": "Studio Ghibli",
+    "añoDebut": 1997,
+    "añoFinalizacion": 1997,
+    "capitulos": 1,
+    "autor": "Hayao Miyazaki"
+  },
+  {
+    "nombre": "Howl's Moving Castle",
+    "genero": ["Aventura", "Fantasía", "Romance"],
+    "demografia": "Shōjo",
+    "estudioAnimacion": "Studio Ghibli",
+    "añoDebut": 2004,
+    "añoFinalizacion": 2004,
+    "capitulos": 1,
+    "autor": "Diana Wynne Jones"
+  },
+  {
+    "nombre": "My Neighbor Totoro",
+    "genero": ["Aventura", "Fantasía", "Familia"],
+    "demografia": "Kodomo",
+    "estudioAnimacion": "Studio Ghibli",
+    "añoDebut": 1988,
+    "añoFinalizacion": 1988,
+    "capitulos": 1,
+    "autor": "Hayao Miyazaki"
+  },
+  {
+    "nombre": "Kiki's Delivery Service",
+    "genero": ["Aventura", "Fantasía", "Comedia"],
+    "demografia": "Shōjo",
+    "estudioAnimacion": "Studio Ghibli",
+    "añoDebut": 1989,
+    "añoFinalizacion": 1989,
+    "capitulos": 1,
+    "autor": "Eiko Kadono"
+  },
+  {
+    "nombre": "Ponyo",
+    "genero": ["Aventura", "Fantasía", "Familia"],
+    "demografia": "Kodomo",
+    "estudioAnimacion": "Studio Ghibli",
+    "añoDebut": 2008,
+    "añoFinalizacion": 2008,
+    "capitulos": 1,
+    "autor": "Hayao Miyazaki"
+  },
+  {
+    "nombre": "The Wind Rises",
+    "genero": ["Drama", "Histórico", "Romance"],
+    "demografia": "Seinen",
+    "estudioAnimacion": "Studio Ghibli",
+    "añoDebut": 2013,
+    "añoFinalizacion": 2013,
+    "capitulos": 1,
+    "autor": "Hayao Miyazaki"
+  },
+  {
+    "nombre": "Porco Rosso",
+    "genero": ["Aventura", "Fantasía", "Drama"],
+    "demografia": "Seinen",
+    "estudioAnimacion": "Studio Ghibli",
+    "añoDebut": 1992,
+    "añoFinalizacion": 1992,
+    "capitulos": 1,
+    "autor": "Hayao Miyazaki"
+  },
+  {
+    "nombre": "Castle in the Sky",
+    "genero": ["Aventura", "Fantasía", "Acción"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "Studio Ghibli",
+    "añoDebut": 1986,
+    "añoFinalizacion": 1986,
+    "capitulos": 1,
+    "autor": "Hayao Miyazaki"
+  },
+  {
+    "nombre": "Nausicaä of the Valley of the Wind",
+    "genero": ["Aventura", "Fantasía", "Ciencia ficción"],
+    "demografia": "Shōjo",
+    "estudioAnimacion": "Topcraft",
+    "añoDebut": 1984,
+    "añoFinalizacion": 1984,
+    "capitulos": 1,
+    "autor": "Hayao Miyazaki"
+  },
+  {
+    "nombre": "The Tale of the Princess Kaguya",
+    "genero": ["Drama", "Fantasía", "Histórico"],
+    "demografia": "Josei",
+    "estudioAnimacion": "Studio Ghibli",
+    "añoDebut": 2013,
+    "añoFinalizacion": 2013,
+    "capitulos": 1,
+    "autor": "Isao Takahata"
+  },
+  {
+    "nombre": "Only Yesterday",
+    "genero": ["Drama", "Recuentos de la vida", "Romance"],
+    "demografia": "Josei",
+    "estudioAnimacion": "Studio Ghibli",
+    "añoDebut": 1991,
+    "añoFinalizacion": 1991,
+    "capitulos": 1,
+    "autor": "Hotaru Okamoto"
+  },
+  {
+    "nombre": "Ocean Waves",
+    "genero": ["Drama", "Romance", "Recuentos de la vida"],
+    "demografia": "Shōjo",
+    "estudioAnimacion": "Studio Ghibli",
+    "añoDebut": 1993,
+    "añoFinalizacion": 1993,
+    "capitulos": 1,
+    "autor": "Saeko Himuro"
+  },
+  {
+    "nombre": "Whisper of the Heart",
+    "genero": ["Drama", "Romance", "Recuentos de la vida"],
+    "demografia": "Shōjo",
+    "estudioAnimacion": "Studio Ghibli",
+    "añoDebut": 1995,
+    "añoFinalizacion": 1995,
+    "capitulos": 1,
+    "autor": "Aoi Hiiragi"
+  },
+  {
+    "nombre": "The Cat Returns",
+    "genero": ["Aventura", "Fantasía", "Comedia"],
+    "demografia": "Shōjo",
+    "estudioAnimacion": "Studio Ghibli",
+    "añoDebut": 2002,
+    "añoFinalizacion": 2002,
+    "capitulos": 1,
+    "autor": "Aoi Hiiragi"
+  },
+  {
+    "nombre": "Arrietty",
+    "genero": ["Aventura", "Fantasía", "Drama"],
+    "demografia": "Shōjo",
+    "estudioAnimacion": "Studio Ghibli",
+    "añoDebut": 2010,
+    "añoFinalizacion": 2010,
+    "capitulos": 1,
+    "autor": "Mary Norton"
+  },
+  {
+    "nombre": "From Up on Poppy Hill",
+    "genero": ["Drama", "Histórico", "Romance"],
+    "demografia": "Shōjo",
+    "estudioAnimacion": "Studio Ghibli",
+    "añoDebut": 2011,
+    "añoFinalizacion": 2011,
+    "capitulos": 1,
+    "autor": "Tetsurō Sayama"
+  },
+  {
+    "nombre": "When Marnie Was There",
+    "genero": ["Drama", "Misterio", "Psicológico"],
+    "demografia": "Shōjo",
+    "estudioAnimacion": "Studio Ghibli",
+    "añoDebut": 2014,
+    "añoFinalizacion": 2014,
+    "capitulos": 1,
+    "autor": "Joan G. Robinson"
+  },
+  {
+    "nombre": "Earwig and the Witch",
+    "genero": ["Fantasía", "Comedia", "Familia"],
+    "demografia": "Kodomo",
+    "estudioAnimacion": "Studio Ghibli",
+    "añoDebut": 2020,
+    "añoFinalizacion": 2020,
+    "capitulos": 1,
+    "autor": "Diana Wynne Jones"
+  },
+  {
+    "nombre": "The Red Turtle",
+    "genero": ["Fantasía", "Drama", "Aventura"],
+    "demografia": "Seinen",
+    "estudioAnimacion": "Studio Ghibli",
+    "añoDebut": 2016,
+    "añoFinalizacion": 2016,
+    "capitulos": 1,
+    "autor": "Michael Dudok de Wit"
+  },
+  {
+    "nombre": "Pom Poko",
+    "genero": ["Comedia", "Fantasía", "Drama"],
+    "demografia": "Seinen",
+    "estudioAnimacion": "Studio Ghibli",
+    "añoDebut": 1994,
+    "añoFinalizacion": 1994,
+    "capitulos": 1,
+    "autor": "Isao Takahata"
+  },
+  {
+    "nombre": "My Neighbors the Yamadas",
+    "genero": ["Comedia", "Recuentos de la vida", "Familia"],
+    "demografia": "Seinen",
+    "estudioAnimacion": "Studio Ghibli",
+    "añoDebut": 1999,
+    "añoFinalizacion": 1999,
+    "capitulos": 1,
+    "autor": "Hisaichi Ishii"
+  },
+  {
+    "nombre": "The Secret World of Arrietty",
+    "genero": ["Aventura", "Fantasía", "Drama"],
+    "demografia": "Shōjo",
+    "estudioAnimacion": "Studio Ghibli",
+    "añoDebut": 2010,
+    "añoFinalizacion": 2010,
+    "capitulos": 1,
+    "autor": "Mary Norton"
+  },
+  {
+    "nombre": "Tales from Earthsea",
+    "genero": ["Aventura", "Fantasía", "Drama"],
+    "demografia": "Shōnen",
+    "estudioAnimacion": "Studio Ghibli",
+    "añoDebut": 2006,
+    "añoFinalizacion": 2006,
+    "capitulos": 1,
+    "autor": "Ursula K. Le Guin"
+  },
+  {
+    "nombre": "The Boy and the Heron",
+    "genero": ["Aventura", "Fantasía", "Drama"],
+    "demografia": "Seinen",
+    "estudioAnimacion": "Studio Ghibli",
+    "añoDebut": 2023,
+    "añoFinalizacion": 2023,
+    "capitulos": 1,
+    "autor": "Hayao Miyazaki"
+  }
+]
