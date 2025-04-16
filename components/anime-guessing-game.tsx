@@ -104,36 +104,32 @@ export default function AnimeGuessingGame() {
 
     // Agregar el nuevo intento al principio del historial
     setGuessHistory([anime, ...guessHistory])
-    setGuessCount(guessCount + 1)
+    setGuessCount(prev => prev + 1)
     setShowColorLegend(true)
 
+    // Solo terminar el juego si se adivina correctamente
     if (anime.nombre === todaysAnime?.nombre) {
       setGameState("won")
-    } else if (guessCount >= 5) {
-      setGameState("lost")
     }
 
     // Disminuir los intentos de pistas si el intento es incorrecto
     if (anime.nombre !== todaysAnime?.nombre) {
+      // Manejar pista de género
       if (genreAttempts > 0) {
-        setGenreAttempts(prev => {
-          const newValue = prev - 1
-          // Mostrar la pista automáticamente cuando llegue a 0
-          if (newValue === 0) {
-            setShowGenreHint(true)
-          }
-          return newValue
-        })
+        const newGenreAttempts = genreAttempts - 1
+        setGenreAttempts(newGenreAttempts)
+        if (newGenreAttempts === 0) {
+          setShowGenreHint(true)
+        }
       }
+
+      // Manejar pista de capítulos
       if (episodeCountAttempts > 0) {
-        setEpisodeCountAttempts(prev => {
-          const newValue = prev - 1
-          // Mostrar la pista automáticamente cuando llegue a 0
-          if (newValue === 0) {
-            setShowEpisodeCountHint(true)
-          }
-          return newValue
-        })
+        const newEpisodeAttempts = episodeCountAttempts - 1
+        setEpisodeCountAttempts(newEpisodeAttempts)
+        if (newEpisodeAttempts === 0) {
+          setShowEpisodeCountHint(true)
+        }
       }
     }
 
