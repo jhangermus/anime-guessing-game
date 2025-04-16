@@ -10,10 +10,6 @@ import Image from "next/image"
 import CharacterAttributesTable from "./character-attributes-table"
 import HintButtons from "./hint-buttons"
 import SuccessCard from "./success-card"
-import animeDataRaw from "@/data/animedata.json"
-
-// Asegurar el tipado correcto de los datos
-const animeData: AnimeData[] = animeDataRaw
 
 // Tipo para la estructura de datos del anime
 type AnimeData = {
@@ -51,28 +47,87 @@ export default function AnimeGuessingGame() {
   const [showGenreHint, setShowGenreHint] = useState(false)
   const [showEpisodeCountHint, setShowEpisodeCountHint] = useState(false)
 
-  // Initialize the game with a random anime
+  // Initialize the game with today's anime
   useEffect(() => {
-    const randomIndex = Math.floor(Math.random() * animeData.length)
-    setTodaysAnime(animeData[randomIndex])
+    const fetchTodaysAnime = async () => {
+      try {
+        const response = await fetch('/api/daily')
+        const data = await response.json()
+        setTodaysAnime(data)
+      } catch (error) {
+        console.error('Error fetching today\'s anime:', error)
+      }
+    }
+
+    fetchTodaysAnime()
   }, [])
+
+  // Handle search input changes
+  const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    setGuessInput(value)
+
+    if (value.length > 0) {
+      try {
+        const response = await fetch(`/api/busqueda?q=${encodeURIComponent(value)}`)
+        const animeNames = await response.json()
+        
+        // Obtener los datos completos de los animes sugeridos
+        const listaResponse = await fetch('/api/lista')
+        const allAnimes: AnimeData[] = await listaResponse.json()
+        
+        const filteredAnimes = allAnimes.filter(anime => 
+          animeNames.includes(anime.nombre) && 
+          !guessHistory.some(guessed => guessed.nombre === anime.nombre)
+        )
+        
+        setSuggestions(filteredAnimes)
+        setShowSuggestions(true)
+      } catch (error) {
+        console.error('Error fetching suggestions:', error)
+      }
+    } else {
+      setSuggestions([])
+      setShowSuggestions(false)
+    }
+  }
+
+  // Handle suggestion click
+  const handleSuggestionClick = (anime: AnimeData) => {
+    setGuessInput(anime.nombre)
+    setShowSuggestions(false)
+    submitGuess(anime)
+  }
+
+  // Handle guess submission
+  const submitGuess = (anime: AnimeData) => {
+    if (gameState !== "playing") return
+
+    setGuessHistory([...guessHistory, anime])
+    setGuessCount(guessCount + 1)
+    setShowColorLegend(true)
+
+    if (anime.nombre === todaysAnime?.nombre) {
+      setGameState("won")
+    } else if (guessCount >= 5) {
+      setGameState("lost")
+    }
+
+    setGuessInput("")
+    setShowSuggestions(false)
+  }
 
   // Handle clicks outside the suggestions dropdown to close it
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        suggestionsRef.current &&
-        !suggestionsRef.current.contains(event.target as Node) &&
-        inputRef.current &&
-        !inputRef.current.contains(event.target as Node)
-      ) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (suggestionsRef.current && !suggestionsRef.current.contains(event.target as Node)) {
         setShowSuggestions(false)
       }
     }
 
-    document.addEventListener("mousedown", handleClickOutside)
+    document.addEventListener('mousedown', handleClickOutside)
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
+      document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [])
 
@@ -98,75 +153,6 @@ export default function AnimeGuessingGame() {
 
     return () => clearInterval(timer)
   }, [gameState])
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.toLowerCase()
-    setGuessInput(e.target.value)
-
-    if (value.trim()) {
-      // Filter animes based on input and exclude previously guessed animes
-      const filtered = animeData.filter((anime) => {
-        const matchesInput = anime.nombre.toLowerCase().includes(value)
-        const notGuessed = !guessHistory.some(guessed => guessed.nombre === anime.nombre)
-        return matchesInput && notGuessed
-      })
-      
-      setSuggestions(filtered.slice(0, 5)) // Limit to 5 suggestions
-      setShowSuggestions(filtered.length > 0)
-    } else {
-      setSuggestions([])
-      setShowSuggestions(false)
-    }
-  }
-
-  const handleSuggestionClick = (anime: AnimeData) => {
-    setGuessInput(anime.nombre)
-    setShowSuggestions(false)
-
-    // Submit the guess automatically when selecting a suggestion
-    if (todaysAnime) {
-      submitGuess(anime)
-    }
-  }
-
-  const submitGuess = (anime: AnimeData) => {
-    if (gameState !== "playing") return
-
-    // Add to guess history
-    setGuessHistory([anime, ...guessHistory])
-    setGuessCount(guessCount + 1)
-    setShowColorLegend(true)
-
-    // Decrease hint counters if guess is incorrect
-    if (anime.nombre !== todaysAnime?.nombre) {
-      if (genreAttempts > 0) {
-        setGenreAttempts(prev => {
-          const newValue = prev - 1
-          if (newValue === 0) {
-            setShowGenreHint(true)
-          }
-          return newValue
-        })
-      }
-      if (episodeCountAttempts > 0) {
-        setEpisodeCountAttempts(prev => {
-          const newValue = prev - 1
-          if (newValue === 0) {
-            setShowEpisodeCountHint(true)
-          }
-          return newValue
-        })
-      }
-    }
-
-    // Check if guess is correct
-    if (anime.nombre === todaysAnime?.nombre) {
-      setGameState("won")
-      setSuccessCount(successCount + 1)
-    }
-
-    setGuessInput("")
-  }
 
   const handleGuessSubmit = (e: React.FormEvent) => {
     e.preventDefault()
