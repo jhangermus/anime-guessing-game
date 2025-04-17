@@ -38,10 +38,24 @@ export default function CharacterAttributesTable({
       const guessedArray = Array.isArray(guessedValue) ? guessedValue : JSON.parse(guessedValue as string)
       const targetArray = Array.isArray(targetValue) ? targetValue : JSON.parse(targetValue as string)
       
-      const intersection = guessedArray.filter((x: string) => targetArray.includes(x))
+      // Sort arrays to ensure order doesn't matter
+      const sortedGuessed = [...guessedArray].sort()
+      const sortedTarget = [...targetArray].sort()
+      
+      // Check for exact match first
+      if (sortedGuessed.length === sortedTarget.length && 
+          sortedGuessed.every((value, index) => value.toLowerCase() === sortedTarget[index].toLowerCase())) {
+        return "correct"
+      }
+      
+      // Check for partial match
+      const intersection = guessedArray.filter((x: string) => 
+        targetArray.some((y: string) => y.toLowerCase() === x.toLowerCase())
+      )
       if (intersection.length > 0) {
         return "partial"
       }
+      
       return "incorrect"
     }
 
