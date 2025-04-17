@@ -143,6 +143,7 @@ export default function AnimeGuessingGame() {
   const [isLoadingOpening, setIsLoadingOpening] = useState(false);
   const [isBlurDisabled, setIsBlurDisabled] = useState(false);
   const [openingError, setOpeningError] = useState<string | null>(null);
+  const [origin, setOrigin] = useState('')
 
   // Initialize the game with today's anime and yesterday's anime
   const fetchAnimeOfDay = useCallback(async () => {
@@ -387,6 +388,12 @@ export default function AnimeGuessingGame() {
       console.error('Error submitting guess:', error);
     }
   };
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setOrigin(window.location.origin)
+    }
+  }, [])
 
   return (
     <div className="w-full relative">
