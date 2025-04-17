@@ -10,14 +10,12 @@ import Image from "next/image"
 import CharacterAttributesTable from "./character-attributes-table"
 import HintButtons from "./hint-buttons"
 import SuccessCard from "./success-card"
-import { searchAnime, getAnimeVideos } from "@/lib/jikan"
-import { YouTubePlayer } from "./youtube-player"
+import { getAnimeImage, getAnimeOpening } from "@/lib/jikan"
 import { Card } from "@/components/ui/card"
 import YouTube from 'react-youtube'
-import { AnimeData } from '@/types/anime'
 
 // Tipo para la estructura de datos del anime
-type AnimeData = {
+interface AnimeData {
   nombre: string
   genero: string[]
   demografia: string
@@ -29,12 +27,12 @@ type AnimeData = {
   imagen?: string
 }
 
-type AnimeSuggestion = {
+interface AnimeSuggestion {
   nombre: string
   imagen: string
 }
 
-type AnimeJSON = {
+interface AnimeJSON {
   nombre: string
   genero: string[]
   demografia: string
@@ -66,12 +64,21 @@ type AnimeImageCache = {
   [key: string]: string;
 }
 
+// Función para extraer el videoId de una URL de YouTube
+const extractVideoId = (url: string): string | null => {
+  const match = url.match(/[?&]v=([^&]+)/);
+  return match ? match[1] : null;
+};
+
 // Mover fuera del componente para evitar recreaciones
 const youtubeOpts = {
   height: '390',
   width: '640',
   playerVars: {
-    autoplay: 1,
+    autoplay: 0,
+    modestbranding: 1,
+    origin: window.location.origin,
+    enablejsapi: 1
   },
 } as const;
 
@@ -123,21 +130,19 @@ export default function AnimeGuessingGame() {
   const [timeZone, setTimeZone] = useState(":D")
   const suggestionsRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
-  const [showFirstAppearanceHint, setShowFirstAppearanceHint] = useState(false)
-  const [showDevilFruitHint, setShowDevilFruitHint] = useState(false)
-  const [genreAttempts, setGenreAttempts] = useState(2)
-  const [episodeCountAttempts, setEpisodeCountAttempts] = useState(3)
   const [showGenreHint, setShowGenreHint] = useState(false)
   const [showEpisodeCountHint, setShowEpisodeCountHint] = useState(false)
-  const [imageCache, setImageCache] = useState<AnimeImageCache>({});
+  const [genreAttempts, setGenreAttempts] = useState(2)
+  const [episodeCountAttempts, setEpisodeCountAttempts] = useState(3)
+  const [imageCache, setImageCache] = useState<{[key: string]: string}>({});
   const [loadingImages, setLoadingImages] = useState<{[key: string]: boolean}>({});
+  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [openingAttempts, setOpeningAttempts] = useState(5);
   const [showOpeningHint, setShowOpeningHint] = useState(false);
   const [openingVideo, setOpeningVideo] = useState<{ title: string; url: string } | null>(null);
   const [isLoadingOpening, setIsLoadingOpening] = useState(false);
-  const searchTimeoutRef = useRef<NodeJS.Timeout>();
-  const maxAttempts = 3;
   const [isBlurDisabled, setIsBlurDisabled] = useState(false);
+  const [openingError, setOpeningError] = useState<string | null>(null);
 
   // Initialize the game with today's anime and yesterday's anime
   const fetchAnimeOfDay = useCallback(async () => {
@@ -246,7 +251,7 @@ export default function AnimeGuessingGame() {
     if (anime.nombre === todaysAnime?.nombre) {
       setGameState("won");
     } else {
-      // Actualizar intentos para las pistas de manera más eficiente
+      // Actualizar intentos para las pistas
       setOpeningAttempts(prev => {
         const newAttempts = Math.max(0, prev - 1);
         if (newAttempts === 0) {
@@ -276,39 +281,31 @@ export default function AnimeGuessingGame() {
     setSuggestions([]);
     setShowSuggestions(false);
 
-    // Mantener el foco en el input
     requestAnimationFrame(() => {
       inputRef.current?.focus();
     });
   }, [gameState, todaysAnime]);
 
-  // Efecto para cargar el opening
-  useEffect(() => {
-    if (showOpeningHint && !openingVideo && !isLoadingOpening && todaysAnime) {
-      const loadOpening = async () => {
-        setIsLoadingOpening(true);
-        try {
-          const video = await getAnimeVideos(todaysAnime.malId);
-          if (video) {
-            setOpeningVideo(video);
-          }
-        } catch (error) {
-          console.error('Error al cargar el opening:', error);
-        } finally {
-          setIsLoadingOpening(false);
-        }
-      };
-      
-      loadOpening();
+  // Actualizar la función fetchAnimeImage para usar getAnimeImage
+  const fetchAnimeImage = async (animeName: string) => {
+    if (!animeName || imageCache[animeName] || loadingImages[animeName]) return;
+    
+    setLoadingImages(prev => ({ ...prev, [animeName]: true }));
+    
+    try {
+      const imageUrl = await getAnimeImage(animeName);
+      if (imageUrl) {
+        setImageCache(prev => ({
+          ...prev,
+          [animeName]: imageUrl
+        }));
+      }
+    } catch (error) {
+      console.error(`Error fetching image for ${animeName}:`, error);
+    } finally {
+      setLoadingImages(prev => ({ ...prev, [animeName]: false }));
     }
-  }, [showOpeningHint, openingVideo, isLoadingOpening, todaysAnime]);
-
-  // Extraer videoId del URL de YouTube
-  const videoId = useMemo(() => {
-    if (!openingVideo?.url) return null;
-    const match = openingVideo.url.match(/(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/watch\?v=|\/watch\?.+&v=))([\w-]{11})/);
-    return match ? match[1] : null;
-  }, [openingVideo?.url]);
+  };
 
   // Countdown timer for next anime
   useEffect(() => {
@@ -333,75 +330,43 @@ export default function AnimeGuessingGame() {
     return () => clearInterval(timer)
   }, [gameState])
 
-  // Add this function after other functions
-  const fetchAnimeImage = async (animeName: string) => {
-    if (imageCache[animeName] || loadingImages[animeName]) return;
-    
-    setLoadingImages(prev => ({ ...prev, [animeName]: true }));
-    
-    try {
-      const animeData = await searchAnime(animeName);
-      if (animeData) {
-        setImageCache(prev => ({
-          ...prev,
-          [animeName]: animeData.imageUrl
-        }));
-      }
-    } catch (error) {
-      console.error(`Error fetching image for ${animeName}:`, error);
-    } finally {
-      setLoadingImages(prev => ({ ...prev, [animeName]: false }));
-    }
-  };
-
-  // Función para obtener el opening
-  const fetchOpening = async () => {
-    if (!todaysAnime || isLoadingOpening) {
-      console.log('No se puede obtener el opening:', { todaysAnime, isLoadingOpening });
-      return;
-    }
-    
-    console.log('Intentando obtener el opening para:', todaysAnime.nombre);
-    setIsLoadingOpening(true);
-    
-    try {
-      const videoData = await getAnimeVideos(20); // ID de Naruto hardcodeado temporalmente
-      console.log('Videos encontrados:', videoData);
-      
-      if (videoData) {
-        setOpeningVideo(videoData);
-        setShowOpeningHint(true);
-      } else {
-        console.log('No se encontraron videos para el anime');
-      }
-    } catch (error) {
-      console.error('Error fetching opening:', error);
-    } finally {
-      setIsLoadingOpening(false);
-    }
-  };
-
-  // Agregar useEffect para manejar la obtención del opening
+  // Efecto para cargar el opening
   useEffect(() => {
-    const handleOpeningHint = async () => {
-      if (showOpeningHint && !openingVideo && !isLoadingOpening && todaysAnime) {
-        console.log('Intentando obtener opening por useEffect');
-        await fetchOpening();
+    const fetchOpening = async () => {
+      if (showOpeningHint && todaysAnime && !openingVideo && !isLoadingOpening) {
+        setIsLoadingOpening(true);
+        setOpeningError(null);
+        
+        try {
+          const video = await getAnimeOpening(todaysAnime.nombre);
+          if (video) {
+            const videoId = extractVideoId(video.url);
+            if (videoId) {
+              setOpeningVideo(video);
+            } else {
+              setOpeningError('Error: No se pudo obtener el ID del video');
+            }
+          } else {
+            setOpeningError('No se encontró el opening para este anime');
+          }
+        } catch (error) {
+          console.error('Error al cargar el opening:', error);
+          setOpeningError('Error al cargar el opening');
+        } finally {
+          setIsLoadingOpening(false);
+        }
       }
     };
 
-    handleOpeningHint();
-  }, [showOpeningHint, openingVideo, isLoadingOpening, todaysAnime]);
+    fetchOpening();
+  }, [showOpeningHint, todaysAnime, openingVideo, isLoadingOpening]);
 
-  // Agregar useEffect para manejar cuando los intentos llegan a 0
-  useEffect(() => {
-    if (openingAttempts === 0 && !showOpeningHint) {
-      console.log('Los intentos llegaron a 0, activando opening hint');
-      setShowOpeningHint(true);
-    }
-  }, [openingAttempts, showOpeningHint]);
-
-  console.log(todaysAnime, showEpisodeCountHint)
+  // Extraer videoId del URL de YouTube
+  const videoId = useMemo(() => {
+    if (!openingVideo?.url) return null;
+    const match = openingVideo.url.match(/(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/watch\?v=|\/watch\?.+&v=))([\w-]{11})/);
+    return match ? match[1] : null;
+  }, [openingVideo?.url]);
 
   // Agregar esta función para manejar el envío del formulario
   const handleGuessSubmit = async (e: React.FormEvent) => {
@@ -451,22 +416,6 @@ export default function AnimeGuessingGame() {
           </div>
         </div>
 
-        {/* Hints Display */}
-        {todaysAnime && (showGenreHint || showEpisodeCountHint) && (
-          <div className="mb-6 p-3 bg-[#ffe48c] rounded-lg text-center text-amber-900">
-            {showGenreHint && (
-              <p className="font-medium mb-1">
-                Genres: {todaysAnime.genero.join(", ")}
-              </p>
-            )}
-            {showEpisodeCountHint && (
-              <p className="font-medium">
-                Number of episodes: {todaysAnime.capitulos || 0}
-              </p>
-            )}
-          </div>
-        )}
-
         {/* Opening Player with Loading State */}
         {showOpeningHint && (
           <div className="mb-6 animate-fade-in">
@@ -474,20 +423,27 @@ export default function AnimeGuessingGame() {
               <div className="w-full bg-white rounded-lg shadow-md p-4 text-center">
                 <p className="text-amber-900">Cargando opening...</p>
               </div>
-            ) : openingVideo && videoId ? (
+            ) : openingVideo ? (
               <div className="flex flex-col items-center w-full">
                 <div className="relative aspect-video w-full max-w-3xl mx-auto group">
                   <div className={`w-full h-full transition-all duration-300 ${!isBlurDisabled ? 'blur-xl' : ''}`}>
                     <YouTube 
-                      videoId={videoId} 
+                      videoId={extractVideoId(openingVideo.url) || ''} 
                       opts={{
                         ...youtubeOpts,
                         width: '100%',
                         height: '100%'
                       }}
                       className="w-full h-full"
-                      onError={(error) => console.error('Error en YouTube player:', error)}
-                      onReady={() => console.log('YouTube player listo')}
+                      onError={(error) => {
+                        console.error('Error en YouTube player:', error);
+                        setOpeningError('Error al reproducir el video. Intenta con otro video.');
+                      }}
+                      onReady={(event) => {
+                        console.log('YouTube player listo');
+                        // Asegurar que el video se cargue correctamente
+                        event.target.playVideo();
+                      }}
                     />
                   </div>
                   <button
@@ -500,8 +456,26 @@ export default function AnimeGuessingGame() {
               </div>
             ) : (
               <div className="w-full bg-white rounded-lg shadow-md p-4 text-center">
-                <p className="text-amber-900">No se encontró el opening para este anime.</p>
+                <p className="text-amber-900">
+                  {openingError || 'No se encontró el opening para este anime.'}
+                </p>
               </div>
+            )}
+          </div>
+        )}
+
+        {/* Hints Display */}
+        {todaysAnime && (showGenreHint || showEpisodeCountHint) && (
+          <div className="mb-6 p-3 bg-[#ffe48c] rounded-lg text-center text-amber-900">
+            {showGenreHint && (
+              <p className="font-medium mb-1">
+                Genres: {todaysAnime.genero.join(", ")}
+              </p>
+            )}
+            {showEpisodeCountHint && (
+              <p className="font-medium">
+                Number of episodes: {todaysAnime.capitulos || 0}
+              </p>
             )}
           </div>
         )}

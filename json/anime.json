@@ -1,0 +1,28 @@
+{
+  "anime": [
+    {
+      "id": 35849,
+      "title": "Darling in the Franxx",
+      "title_english": "DARLING in the FRANXX",
+      "title_japanese": "ダーリン・イン・ザ・フランキス",
+      "image_url": "https://cdn.myanimelist.net/images/anime/1614/90408.jpg",
+      "mal_id": 35849
+    },
+    {
+      "id": 40834,
+      "title": "Ousama Ranking",
+      "title_english": "Ranking of Kings",
+      "title_japanese": "王様ランキング",
+      "image_url": "https://cdn.myanimelist.net/images/anime/1347/117616.jpg",
+      "mal_id": 40834
+    },
+    {
+      "id": 20,
+      "title": "Naruto",
+      "title_english": "Naruto",
+      "title_japanese": "ナルト",
+      "image_url": "https://cdn.myanimelist.net/images/anime/13/17405.jpg",
+      "mal_id": 20
+    }
+  ]
+} 

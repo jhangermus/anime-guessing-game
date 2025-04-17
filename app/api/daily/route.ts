@@ -1,25 +1,29 @@
 import { NextResponse } from 'next/server';
 import animeData from '@/data/animedata.json';
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    // Temporalmente devolver Naruto para pruebas
-    const testAnime = animeData.find(anime => 
-      anime.nombre.toLowerCase().includes('naruto') &&
-      !anime.nombre.toLowerCase().includes('shippuden') // Buscamos el Naruto original
-    );
+    const { searchParams } = new URL(request.url);
+    const testAnimeName = searchParams.get('test');
 
-    if (testAnime) {
-      console.log('Devolviendo Naruto como anime del día para pruebas');
-      return NextResponse.json(testAnime);
+    // Si se proporciona un nombre de anime para pruebas, devolver ese anime
+    if (testAnimeName) {
+      const testAnime = animeData.find(anime => 
+        anime.nombre.toLowerCase().includes(testAnimeName.toLowerCase())
+      );
+
+      if (testAnime) {
+        console.log(`Devolviendo ${testAnime.nombre} como anime del día para pruebas`);
+        return NextResponse.json(testAnime);
+      }
     }
 
-    // Si por alguna razón no se encuentra Naruto, usar la lógica original
-    const today = new Date();
-    const dayOfYear = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / (1000 * 60 * 60 * 24));
-    const animeIndex = dayOfYear % animeData.length;
+    // Seleccionar un anime aleatorio
+    const randomIndex = Math.floor(Math.random() * animeData.length);
+    const selectedAnime = animeData[randomIndex];
     
-    return NextResponse.json(animeData[animeIndex]);
+    console.log(`Devolviendo ${selectedAnime.nombre} como anime del día (aleatorio)`);
+    return NextResponse.json(selectedAnime);
   } catch (error) {
     console.error('Error al obtener el anime del día:', error);
     return NextResponse.json({ error: 'Error al obtener el anime del día' }, { status: 500 });
