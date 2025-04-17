@@ -25,9 +25,9 @@ export default function HintButtons({
         >
           <Sword className="h-6 w-6 mb-1 text-gray-600" />
           <div className="text-xs text-center text-gray-700">
-            PISTA DE GÉNERO
+            GENRE HINT
             <br />
-            EN {genreAttempts} INTENTOS
+            IN {genreAttempts} TRIES
           </div>
         </Button>
       )}
@@ -39,9 +39,9 @@ export default function HintButtons({
         >
           <Tv className="h-6 w-6 mb-1 text-gray-600" />
           <div className="text-xs text-center text-gray-700">
-            PISTA DE CAPÍTULOS
+            EPISODES HINT
             <br />
-            EN {episodeCountAttempts} INTENTOS
+            IN {episodeCountAttempts} TRIES
           </div>
         </Button>
       )}
