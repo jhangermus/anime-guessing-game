@@ -66,7 +66,6 @@ export default function AnimeGuessingGame() {
   const [showHint, setShowHint] = useState(false)
   const [suggestions, setSuggestions] = useState<AnimeData[]>([])
   const [showSuggestions, setShowSuggestions] = useState(false)
-  const [showColorLegend, setShowColorLegend] = useState(false)
   const [nextAnimeTime, setNextAnimeTime] = useState({ hours: 12, minutes: 1, seconds: 18 })
   const [timeZone, setTimeZone] = useState(":D")
   const suggestionsRef = useRef<HTMLDivElement>(null)
@@ -179,7 +178,6 @@ export default function AnimeGuessingGame() {
     // Agregar el nuevo intento al principio del historial
     setGuessHistory([anime, ...guessHistory])
     setGuessCount(prev => prev + 1)
-    setShowColorLegend(true)
 
     // Solo terminar el juego si se adivina correctamente
     if (anime.nombre === todaysAnime?.nombre) {
@@ -404,45 +402,35 @@ export default function AnimeGuessingGame() {
             ))}
 
             {/* Color Legend */}
-            {showColorLegend && (
-              <div className="relative mt-4 bg-white border-2 border-amber-900/20 rounded-lg p-4">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="absolute top-2 right-2 h-6 w-6"
-                  onClick={() => setShowColorLegend(false)}
-                >
-                  <X className="h-4 w-4" />
-                </Button>
-                <h3 className="text-center font-medium mb-2">Indicadores de color</h3>
-                <div className="flex justify-center items-center gap-4 flex-wrap">
-                  <div className="flex flex-col items-center">
-                    <div className="w-8 h-8 bg-green-500 mb-1"></div>
-                    <span className="text-xs">Correcto</span>
+            <div className="mt-4 bg-white border-2 border-amber-900/20 rounded-lg p-4">
+              <h3 className="text-center font-medium mb-2">Indicadores de color</h3>
+              <div className="flex justify-center items-center gap-4 flex-wrap">
+                <div className="flex flex-col items-center">
+                  <div className="w-8 h-8 bg-green-500 mb-1 rounded"></div>
+                  <span className="text-xs">Correcto</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="w-8 h-8 bg-yellow-400 mb-1 rounded"></div>
+                  <span className="text-xs">Parcial</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="w-8 h-8 bg-red-500 mb-1 rounded"></div>
+                  <span className="text-xs">Incorrecto</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="w-8 h-8 bg-red-800 flex items-center justify-center mb-1 rounded">
+                    <ArrowUp className="h-5 w-5 text-white" />
                   </div>
-                  <div className="flex flex-col items-center">
-                    <div className="w-8 h-8 bg-yellow-400 mb-1"></div>
-                    <span className="text-xs">Parcial</span>
+                  <span className="text-xs">Más alto</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="w-8 h-8 bg-red-800 flex items-center justify-center mb-1 rounded">
+                    <ArrowDown className="h-5 w-5 text-white" />
                   </div>
-                  <div className="flex flex-col items-center">
-                    <div className="w-8 h-8 bg-red-500 mb-1"></div>
-                    <span className="text-xs">Incorrecto</span>
-                  </div>
-                  <div className="flex flex-col items-center">
-                    <div className="w-8 h-8 bg-red-800 flex items-center justify-center mb-1">
-                      <ArrowUp className="h-5 w-5 text-white" />
-                    </div>
-                    <span className="text-xs">Más alto</span>
-                  </div>
-                  <div className="flex flex-col items-center">
-                    <div className="w-8 h-8 bg-red-800 flex items-center justify-center mb-1">
-                      <ArrowDown className="h-5 w-5 text-white" />
-                    </div>
-                    <span className="text-xs">Baja</span>
-                  </div>
+                  <span className="text-xs">Baja</span>
                 </div>
               </div>
-            )}
+            </div>
           </div>
         )}
 
