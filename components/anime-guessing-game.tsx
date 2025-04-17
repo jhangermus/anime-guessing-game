@@ -5,7 +5,7 @@ import type React from "react"
 import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { BarChart3, Flame, HelpCircle, ClipboardList, Send, X } from "lucide-react"
+import { BarChart3, Flame, HelpCircle, ClipboardList, Send, X, ArrowUp, ArrowDown } from "lucide-react"
 import Image from "next/image"
 import CharacterAttributesTable from "./character-attributes-table"
 import HintButtons from "./hint-buttons"
@@ -356,13 +356,13 @@ export default function AnimeGuessingGame() {
                   </div>
                   <div className="flex flex-col items-center">
                     <div className="w-8 h-8 bg-red-800 flex items-center justify-center mb-1">
-                      <span className="text-white">▲</span>
+                      <ArrowUp className="h-5 w-5 text-white" />
                     </div>
                     <span className="text-xs">Más alto</span>
                   </div>
                   <div className="flex flex-col items-center">
                     <div className="w-8 h-8 bg-red-800 flex items-center justify-center mb-1">
-                      <span className="text-white">▼</span>
+                      <ArrowDown className="h-5 w-5 text-white" />
                     </div>
                     <span className="text-xs">Baja</span>
                   </div>

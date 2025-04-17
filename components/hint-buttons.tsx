@@ -21,8 +21,7 @@ export default function HintButtons({
       {genreAttempts > 0 && (
         <Button
           variant="outline"
-          className="bg-gray-100 border-gray-300 h-auto py-3 flex flex-col items-center"
-          onClick={onGenreHint}
+          className="bg-gray-100 border-gray-300 h-auto py-3 flex flex-col items-center cursor-default pointer-events-none"
         >
           <Sword className="h-6 w-6 mb-1 text-gray-600" />
           <div className="text-xs text-center text-gray-700">
@@ -36,8 +35,7 @@ export default function HintButtons({
       {episodeCountAttempts > 0 && (
         <Button
           variant="outline"
-          className="bg-gray-100 border-gray-300 h-auto py-3 flex flex-col items-center"
-          onClick={onEpisodeCountHint}
+          className="bg-gray-100 border-gray-300 h-auto py-3 flex flex-col items-center cursor-default pointer-events-none"
         >
           <Tv className="h-6 w-6 mb-1 text-gray-600" />
           <div className="text-xs text-center text-gray-700">
