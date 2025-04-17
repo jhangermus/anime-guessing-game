@@ -53,14 +53,32 @@
   * {
     @apply border-border;
   }
+
+  html {
+    height: 100%;
+    overflow: hidden;
+  }
+
   body {
     @apply bg-background text-foreground;
-    background-image: url('/background.jpg');
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    background-attachment: fixed;
-    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: auto;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    left: 0;
+    top: 0;
     width: 100%;
+    height: 100%;
+    background-image: url('/background.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    z-index: -1;
+    pointer-events: none;
   }
 }
