@@ -5,9 +5,9 @@ type AnimeData = {
   nombre: string
   genero: string[]
   demografia: string
-  estudioAnimacion: string
-  añoDebut: number
-  añoFinalizacion: number | null
+  estudio: string
+  año_debut: string
+  año_finalizacion: string
   capitulos: number
   autor: string
 }
@@ -35,11 +35,9 @@ export default function CharacterAttributesTable({
     }
 
     if (isArray) {
-      // Parse JSON strings if needed
       const guessedArray = Array.isArray(guessedValue) ? guessedValue : JSON.parse(guessedValue as string)
       const targetArray = Array.isArray(targetValue) ? targetValue : JSON.parse(targetValue as string)
       
-      // Check if arrays have any common elements
       const intersection = guessedArray.filter((x: string) => targetArray.includes(x))
       if (intersection.length > 0) {
         return "partial"
@@ -48,20 +46,12 @@ export default function CharacterAttributesTable({
     }
 
     if (isNumeric) {
-      // Manejar el caso especial de "en emisión" (null)
-      if (guessedValue === null || targetValue === null) {
-        // Si el anime adivinado está en emisión, siempre mostrar flecha hacia abajo
-        if (guessedValue === null) {
-          return "lower"
-        }
-        // Si el objetivo está en emisión y el adivinado no, mostrar flecha hacia abajo
-        if (targetValue === null) {
-          return "lower"
-        }
-      }
-
       const guessedNum = Number(guessedValue)
       const targetNum = Number(targetValue)
+
+      if (isNaN(guessedNum) || isNaN(targetNum)) {
+        return "incorrect"
+      }
 
       if (guessedNum > targetNum) {
         return "lower"
@@ -141,19 +131,19 @@ export default function CharacterAttributesTable({
     },
     {
       label: "ESTUDIO",
-      guessedValue: guessedCharacter.estudioAnimacion,
-      targetValue: targetCharacter.estudioAnimacion,
+      guessedValue: guessedCharacter.estudio,
+      targetValue: targetCharacter.estudio,
     },
     {
       label: "AÑO DEBUT",
-      guessedValue: guessedCharacter.añoDebut,
-      targetValue: targetCharacter.añoDebut,
+      guessedValue: guessedCharacter.año_debut,
+      targetValue: targetCharacter.año_debut,
       isNumeric: true,
     },
     {
       label: "AÑO FIN",
-      guessedValue: guessedCharacter.añoFinalizacion,
-      targetValue: targetCharacter.añoFinalizacion,
+      guessedValue: guessedCharacter.año_finalizacion,
+      targetValue: targetCharacter.año_finalizacion,
       isNumeric: true,
     },
     {

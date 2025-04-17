@@ -16,11 +16,42 @@ type AnimeData = {
   nombre: string
   genero: string[]
   demografia: string
-  estudioAnimacion: string
-  añoDebut: number
-  añoFinalizacion: number | null
+  estudio: string
+  año_debut: string
+  año_finalizacion: string
   capitulos: number
   autor: string
+}
+
+type AnimeSuggestion = {
+  nombre: string
+  imagen: string
+}
+
+type AnimeJSON = {
+  nombre: string
+  genero: string[]
+  demografia: string
+  estudio: string
+  año_debut: string
+  año_finalizacion: string
+  capitulos: number
+  autor: string
+  imagen: string
+}
+
+// Función para convertir de JSON a AnimeData
+const convertJSONToAnimeData = (json: AnimeJSON): AnimeData => {
+  return {
+    nombre: json.nombre,
+    genero: json.genero,
+    demografia: json.demografia,
+    estudio: json.estudio,
+    año_debut: json.año_debut,
+    año_finalizacion: json.año_finalizacion,
+    capitulos: json.capitulos,
+    autor: json.autor,
+  }
 }
 
 export default function AnimeGuessingGame() {
@@ -52,8 +83,8 @@ export default function AnimeGuessingGame() {
     const fetchTodaysAnime = async () => {
       try {
         const response = await fetch('/api/daily')
-        const data = await response.json()
-        setTodaysAnime(data)
+        const jsonData = await response.json()
+        setTodaysAnime(convertJSONToAnimeData(jsonData))
       } catch (error) {
         console.error('Error fetching today\'s anime:', error)
       }
