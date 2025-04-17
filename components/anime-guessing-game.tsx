@@ -62,7 +62,7 @@ export default function AnimeGuessingGame() {
   const [guessCount, setGuessCount] = useState(0)
   const [successCount, setSuccessCount] = useState(0)
   const [playerRank, setPlayerRank] = useState(0)
-  const [yesterdaysAnime, setYesterdaysAnime] = useState({ id: 380, nombre: "Attack on Titan" })
+  const [yesterdaysAnime, setYesterdaysAnime] = useState<AnimeData | null>(null)
   const [showHint, setShowHint] = useState(false)
   const [suggestions, setSuggestions] = useState<AnimeData[]>([])
   const [showSuggestions, setShowSuggestions] = useState(false)
@@ -77,19 +77,25 @@ export default function AnimeGuessingGame() {
   const [showGenreHint, setShowGenreHint] = useState(false)
   const [showEpisodeCountHint, setShowEpisodeCountHint] = useState(false)
 
-  // Initialize the game with today's anime
+  // Initialize the game with today's anime and yesterday's anime
   useEffect(() => {
-    const fetchTodaysAnime = async () => {
+    const fetchAnimeData = async () => {
       try {
-        const response = await fetch('/api/daily')
-        const jsonData = await response.json()
-        setTodaysAnime(convertJSONToAnimeData(jsonData))
+        // Fetch today's anime
+        const todayResponse = await fetch('/api/daily')
+        const todayData = await todayResponse.json()
+        setTodaysAnime(convertJSONToAnimeData(todayData))
+
+        // Fetch yesterday's anime
+        const yesterdayResponse = await fetch('/api/yesterday')
+        const yesterdayData = await yesterdayResponse.json()
+        setYesterdaysAnime(convertJSONToAnimeData(yesterdayData))
       } catch (error) {
-        console.error('Error fetching today\'s anime:', error)
+        console.error('Error fetching anime data:', error)
       }
     }
 
-    fetchTodaysAnime()
+    fetchAnimeData()
   }, [])
 
   // Fetch initial success count and set up polling
@@ -437,7 +443,7 @@ export default function AnimeGuessingGame() {
         {/* Yesterday's Anime */}
         <div className="text-center mt-4 text-amber-800">
           <p>
-            El anime de ayer fue: {yesterdaysAnime.nombre}
+            {yesterdaysAnime ? `El anime de ayer fue: ${yesterdaysAnime.nombre}` : 'Cargando anime de ayer...'}
           </p>
         </div>
       </div>
