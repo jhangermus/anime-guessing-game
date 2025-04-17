@@ -34,9 +34,13 @@ export default function CharacterAttributesTable({
       return "correct"
     }
 
-    if (isArray && Array.isArray(guessedValue) && Array.isArray(targetValue)) {
+    if (isArray) {
+      // Parse JSON strings if needed
+      const guessedArray = Array.isArray(guessedValue) ? guessedValue : JSON.parse(guessedValue as string)
+      const targetArray = Array.isArray(targetValue) ? targetValue : JSON.parse(targetValue as string)
+      
       // Check if arrays have any common elements
-      const intersection = guessedValue.filter(x => targetValue.includes(x))
+      const intersection = guessedArray.filter((x: string) => targetArray.includes(x))
       if (intersection.length > 0) {
         return "partial"
       }

@@ -29,8 +29,8 @@ export default function AnimeGuessingGame() {
   const [guessHistory, setGuessHistory] = useState<AnimeData[]>([])
   const [gameState, setGameState] = useState<"playing" | "won" | "lost">("playing")
   const [guessCount, setGuessCount] = useState(0)
-  const [successCount, setSuccessCount] = useState(2955)
-  const [playerRank, setPlayerRank] = useState(3997)
+  const [successCount, setSuccessCount] = useState(0)
+  const [playerRank, setPlayerRank] = useState(0)
   const [yesterdaysAnime, setYesterdaysAnime] = useState({ id: 380, nombre: "Attack on Titan" })
   const [showHint, setShowHint] = useState(false)
   const [suggestions, setSuggestions] = useState<AnimeData[]>([])
@@ -61,6 +61,49 @@ export default function AnimeGuessingGame() {
 
     fetchTodaysAnime()
   }, [])
+
+  // Fetch initial success count and set up polling
+  useEffect(() => {
+    const fetchSuccessCount = async () => {
+      try {
+        const response = await fetch('/api/contador')
+        const data = await response.json()
+        setSuccessCount(data.count)
+      } catch (error) {
+        console.error('Error fetching success count:', error)
+      }
+    }
+
+    // Fetch initial count
+    fetchSuccessCount()
+
+    // Set up polling every 10 seconds
+    const interval = setInterval(fetchSuccessCount, 10000)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  // Update success count when game is won
+  useEffect(() => {
+    const updateSuccessCount = async () => {
+      if (gameState === "won") {
+        try {
+          await fetch('/api/contador', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ isCorrect: true }),
+          })
+        } catch (error) {
+          console.error('Error updating success count:', error)
+        }
+      }
+    }
+
+    updateSuccessCount()
+  }, [gameState])
+
   // Handle search input changes
   const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
@@ -99,7 +142,7 @@ export default function AnimeGuessingGame() {
   }
 
   // Handle guess submission
-  const submitGuess = (anime: AnimeData) => {
+  const submitGuess = async (anime: AnimeData) => {
     if (gameState !== "playing") return
 
     // Agregar el nuevo intento al principio del historial
@@ -375,8 +418,7 @@ export default function AnimeGuessingGame() {
         {/* Yesterday's Anime */}
         <div className="text-center mt-4 text-amber-800">
           <p>
-            Yesterday&apos;s anime was <span className="text-red-500">#{yesterdaysAnime.id}</span>{" "}
-            {yesterdaysAnime.nombre}
+            El anime de ayer fue: {yesterdaysAnime.nombre}
           </p>
         </div>
       </div>
